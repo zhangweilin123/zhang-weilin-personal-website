@@ -1,0 +1,273 @@
+.ChatDOM .wrapper.zwl-film-menu-ready .input,
+.ChatDOM .wrapper.zwl-film-menu-ready .flashing {
+    display: none !important;
+}
+
+.ChatDOM [data-film-category].active {
+    color: #ffffff !important;
+}
+
+.ChatDOM .wrapper.zwl-detail-back-ready {
+    z-index: 2147483000 !important;
+}
+
+.ChatDOM [data-film-back-ready="true"] {
+    position: relative !important;
+    z-index: 2147483001 !important;
+    pointer-events: auto !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) {
+    left: clamp(18px, 3vw, 48px) !important;
+    top: auto !important;
+    bottom: clamp(18px, 4vh, 40px) !important;
+    width: min(420px, calc(100vw - 36px)) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 22px 14px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(208, 232, 235, 0.13) !important;
+    border-left-color: rgba(110, 239, 231, 0.78) !important;
+    border-radius: 4px 16px 16px 4px !important;
+    background:
+        linear-gradient(102deg, rgba(4, 9, 15, 0.97), rgba(7, 13, 20, 0.91) 72%, rgba(8, 14, 21, 0.84)) !important;
+    box-shadow:
+        24px 30px 70px rgba(0, 0, 0, 0.42),
+        inset 3px 0 0 rgba(115, 241, 232, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035) !important;
+    backdrop-filter: blur(13px) saturate(78%) !important;
+    mix-blend-mode: normal !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > p {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 17px 4px 15px !important;
+    border-bottom: 1px solid rgba(216, 237, 239, 0.14) !important;
+    color: #ffffff !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0.055em !important;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.62) !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > p::before {
+    content: "FILM STYLE INDEX" !important;
+    display: block !important;
+    margin-bottom: 4px !important;
+    color: #9bfff8 !important;
+    font-size: 9px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.16em !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > p::after {
+    content: "06 / CATEGORIES" !important;
+    position: absolute !important;
+    right: 4px !important;
+    bottom: 18px !important;
+    color: rgba(218, 232, 233, 0.66) !important;
+    font-size: 9px !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.1em !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 10px !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-height: 43px !important;
+    padding: 0 4px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid rgba(217, 237, 239, 0.08) !important;
+    color: rgba(238, 246, 246, 0.88) !important;
+    font-size: 0 !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.035em !important;
+    text-shadow: none !important;
+    transition: color 180ms ease, background 180ms ease, transform 180ms ease !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home:first-of-type {
+    border-bottom-color: transparent !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home::before,
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home::after {
+    display: block !important;
+    font-weight: 650 !important;
+    line-height: 1.2 !important;
+    text-shadow: none !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home::before {
+    color: inherit !important;
+    font-size: 14px !important;
+    letter-spacing: 0.045em !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home::after {
+    min-width: 68px !important;
+    color: rgba(202, 223, 225, 0.72) !important;
+    font-size: 9px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    text-align: right !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="叙事风格"]::before { content: "01  /  叙事风格" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="叙事风格"]::after { content: "NAR  ·  12" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="视觉美学"]::before { content: "02  /  视觉美学" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="视觉美学"]::after { content: "VIS  ·  13" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="拍摄风格"]::before { content: "03  /  拍摄风格" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="拍摄风格"]::after { content: "CAM  ·  12" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="时代地域风格"]::before { content: "04  /  时代地域" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="时代地域风格"]::after { content: "ERA  ·  09" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="商业媒介风格"]::before { content: "05  /  商业媒介" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="商业媒介风格"]::after { content: "COM  ·  14" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="扩展风格"]::before { content: "06  /  扩展风格" !important; }
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home[title*="扩展风格"]::after { content: "EXT  ·  04" !important; }
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home:hover,
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home:focus-visible {
+    color: #ffffff !important;
+    background: linear-gradient(90deg, rgba(92, 226, 218, 0.11), transparent 82%) !important;
+    transform: translateX(3px) !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home.active {
+    color: #f8ffff !important;
+    background: linear-gradient(90deg, rgba(93, 230, 221, 0.18), rgba(93, 230, 221, 0.025) 76%, transparent) !important;
+    box-shadow: -22px 0 0 -20px #73f1e8 !important;
+}
+
+.ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home.active::after {
+    color: #73f1e8 !important;
+}
+
+.ChatDOM .wrapper.zwl-detail-back-ready {
+    left: clamp(18px, 3vw, 48px) !important;
+    top: auto !important;
+    bottom: clamp(18px, 4vh, 40px) !important;
+    width: min(480px, calc(100vw - 36px)) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: calc(100vh - 36px) !important;
+    padding: 20px 22px !important;
+    border: 1px solid rgba(126, 236, 235, 0.3) !important;
+    border-radius: 14px !important;
+    background: linear-gradient(145deg, rgba(5, 14, 17, 0.92), rgba(4, 9, 12, 0.76)) !important;
+    box-shadow: 0 20px 54px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(16px) saturate(125%) !important;
+}
+
+.ChatDOM .wrapper.zwl-detail-back-ready .messages {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    gap: 8px !important;
+    overflow: visible !important;
+}
+
+.ChatDOM .wrapper.zwl-detail-back-ready .messages > p {
+    width: 100% !important;
+    margin: 0 !important;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45) !important;
+}
+
+.ChatDOM .wrapper.zwl-detail-back-ready .messages > p:nth-of-type(1) {
+    color: rgba(240, 248, 247, 0.92) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1.62 !important;
+    letter-spacing: 0.01em !important;
+}
+
+.ChatDOM .wrapper.zwl-detail-back-ready .messages > p:nth-of-type(2) {
+    color: #73f1e8 !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0.045em !important;
+}
+
+.ChatDOM .wrapper.zwl-detail-back-ready .messages > p:nth-of-type(3) {
+    color: #ffffff !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0.035em !important;
+}
+
+.ChatDOM .wrapper.zwl-detail-back-ready .messages > a:not(.home) {
+    align-self: flex-start !important;
+    margin-top: 4px !important;
+    padding: 8px 12px !important;
+    border: 1px solid rgba(115, 241, 232, 0.36) !important;
+    border-radius: 999px !important;
+    color: #eafffc !important;
+    background: rgba(14, 42, 43, 0.48) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.035em !important;
+}
+
+@media (max-width: 640px) {
+    .ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready),
+    .ChatDOM .wrapper.zwl-detail-back-ready {
+        left: 14px !important;
+        right: 14px !important;
+        bottom: 14px !important;
+        width: auto !important;
+        max-height: calc(100vh - 28px) !important;
+        padding: 16px 17px !important;
+    }
+
+    .ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) {
+        padding: 0 16px 10px !important;
+    }
+
+    .ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > p {
+        padding: 14px 3px 12px !important;
+    }
+
+    .ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home {
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        gap: 8px !important;
+        min-height: 39px !important;
+    }
+
+    .ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > p {
+        font-size: 15px !important;
+    }
+
+    .ChatDOM .wrapper.zwl-film-menu-ready:not(.zwl-detail-back-ready) .messages > a.home::before {
+        font-size: 13px !important;
+    }
+
+    .ChatDOM .wrapper.zwl-detail-back-ready .messages > p:nth-of-type(1) {
+        font-size: 14px !important;
+        line-height: 1.55 !important;
+    }
+}

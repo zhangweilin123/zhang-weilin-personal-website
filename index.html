@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <base href="/">
+    <link href="https://zhangweilin.onrender.com" rel="canonical">
+    <title>张炜林个人网站 | AIGC 影像创作 / 新媒体编导</title>
+    <meta name="description" content="张炜林，来自北京，广播电视编导与 AIGC 影像创作者，关注影像内容创作与 AI 技术融合。联系方式：15010222352。">
+    <meta property="og:url" content="https://zhangweilin.onrender.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="张炜林个人网站 | AIGC 影像创作 / 新媒体编导">
+    <meta property="og:description" content="张炜林，来自北京，广播电视编导与 AIGC 影像创作者，关注影像内容创作与 AI 技术融合。">
+    <meta property="og:image" content="https://storage.googleapis.com/activetheory-v6.appspot.com/media/social.jpg">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://zhangweilin.onrender.com">
+    <meta property="twitter:title" content="张炜林个人网站 | AIGC 影像创作 / 新媒体编导">
+    <meta property="twitter:description" content="张炜林，来自北京，广播电视编导与 AIGC 影像创作者，关注影像内容创作与 AI 技术融合。">
+    <meta property="twitter:image" content="https://storage.googleapis.com/activetheory-v6.appspot.com/media/social.jpg">
+    <meta name="apple-mobile-web-app-title" content="张炜林">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/meta/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/meta/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/meta/favicon-16x16.png">
+    <link rel="manifest" href="assets/meta/manifest.json">
+    <link rel="preload" href="assets/intro/jimeng-opening.mp4?v=20260716-hd720" as="video" type="video/mp4" fetchpriority="high">
+    <link rel="preload" href="assets/intro/jimeng-poster.webp?v=20260716-hd720" as="image" type="image/webp" fetchpriority="high">
+    <link rel="stylesheet" href="assets/film-styles.css?v=20260716-index-layout-6">
+    <link rel="preload" href="assets/js/app.1780406240914.js?v=20260716-instant" as="script" fetchpriority="low">
+    <link rel="preload" href="assets/data/uil.1780406240914.json?v=20260716-refined" as="fetch" crossorigin="anonymous" fetchpriority="low">
+    <link rel="preload" href="assets/shaders/compiled.vs" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="assets/js/lib/_draco/draco_decoder.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
+    <link rel="preload" href="assets/js/lib/basis_transcoder.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
+    <link rel="preload" href="assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="mask-icon" href="assets/meta/safari-pinned-tab.svg" color="#333333">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#000000">
+    <script>
+        (function(){
+            if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+            var initialPath = location.pathname.replace(/\/+$/, "") || "/";
+            if (initialPath === "/work") {
+                history.replaceState(history.state, "", "/" + location.search + location.hash);
+            }
+            window.scrollTo(0, 0);
+        }());
+    </script>
+    <style type="text/css">
+        #Stage,
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            -ms-content-zooming: none;
+            -ms-touch-action: none;
+            touch-action: none;
+            background: #000;
+        }
+
+        @font-face {
+            font-family: "nbarchitekt";
+            src:
+                url(assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.woff2) format("woff2"),
+                url(assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.woff) format("woff"),
+                url(assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.otf) format("opentype");
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: "nbarchitekt";
+            src:
+                url(assets/fonts/NBArchitektStd-Light-export/NBArchitektStd-Light.woff2) format("woff2"),
+                url(assets/fonts/NBArchitektStd-Light-export/NBArchitektStd-Light.woff) format("woff"),
+                url(assets/fonts/NBArchitektStd-Light-export/NBArchitektStd-Light.otf) format("opentype");
+            font-style: normal;
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: "nbarchitekt";
+            src:
+                url(assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.woff2) format("woff2"),
+                url(assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.woff) format("woff"),
+                url(assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.otf) format("opentype");
+            font-style: normal;
+            font-weight: 700;
+        }
+
+        .ios,
+        .ios #Stage,
+        .ios body {
+            overflow: visible;
+        }
+
+        .ios,
+        .mob {
+            position: relative;
+            height: 100vh;
+        }
+
+        .GLA11y {
+            position: absolute;
+            width: 0;
+            height: 100%;
+            clip: rect(0 0 0 0);
+            overflow: hidden;
+        }
+
+        :root {
+            --baropacity: 0.0;
+            --zwl-hero-opacity: 1;
+            --zwl-about-opacity: 0;
+            --zwl-practice-opacity: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, var(--baropacity, 0.9));
+            border-radius: 10px;
+        }
+
+        #Stage,
+        #Stage * {
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -o-user-select: none;
+            -ms-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: none;
+        }
+
+        #Stage *,
+        #Stage ::after,
+        #Stage ::before {
+            box-sizing: border-box;
+        }
+
+        #Stage * input,
+        #Stage * textarea {
+            -moz-user-select: auto;
+            -webkit-user-select: auto;
+            -o-user-select: auto;
+            -ms-user-select: auto;
+            -webkit-tap-highlight-color: auto;
+        }
+
+        .feature-detects {
+            visibility: hidden;
+            pointer-events: none;
+            position: absolute;
+            width: 0;
+            height: 100vh;
+            clip: rect(0 0 0 0);
+        }
+
+        @supports (--css: variables) and (padding: env(safe-area-inset-bottom)) {
+            .feature-detects {
+                --safe-area-inset-top: env(safe-area-inset-top);
+                --safe-area-inset-right: env(safe-area-inset-right);
+                --safe-area-inset-bottom: env(safe-area-inset-bottom);
+                --safe-area-inset-left: env(safe-area-inset-left);
+            }
+        }
+
+        .zwl-personal-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            pointer-events: none;
+            color: #f4f8f7;
+            font-family: "nbarchitekt", "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        .zwl-personal-layer,
+        .zwl-personal-layer * {
+            box-sizing: border-box;
+        }
+
+        .zwl-screen {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            padding: clamp(42px, 5vw, 86px);
+            opacity: 0;
+            visibility: hidden;
+            transition: visibility 0s linear 280ms;
+            will-change: opacity;
+        }
+
+        .zwl-screen.is-active {
+            visibility: visible;
+            transition-delay: 0s;
+        }
+
+        .zwl-screen::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .zwl-hero {
+            align-items: flex-end;
+            opacity: var(--zwl-hero-opacity);
+        }
+
+        .zwl-hero::before {
+            left: 0;
+            right: 42%;
+            bottom: 0;
+            height: 58%;
+            background: radial-gradient(ellipse at 16% 82%, rgba(0, 0, 0, 0.78), transparent 70%);
+        }
+
+        .zwl-hero__content {
+            position: relative;
+            width: min(560px, 47vw);
+            padding-left: clamp(24px, 2.2vw, 38px);
+        }
+
+        .zwl-hero__content::before,
+        .zwl-about__panel::before,
+        .zwl-practice__content::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 3px;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, #82f4ee, rgba(130, 244, 238, 0.08));
+            box-shadow: 0 0 18px rgba(130, 244, 238, 0.24);
+        }
+
+        .zwl-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 17px;
+            color: #82f4ee;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.08em;
+        }
+
+        .zwl-eyebrow__index {
+            color: rgba(255, 255, 255, 0.42);
+        }
+
+        .zwl-hero__name {
+            margin: 0 0 18px;
+            font-size: clamp(58px, 6.2vw, 98px);
+            line-height: 0.88;
+            font-weight: 700;
+            letter-spacing: -0.055em;
+            text-shadow: 0 8px 42px rgba(0, 0, 0, 0.56);
+        }
+
+        .zwl-hero__statement {
+            max-width: 520px;
+            margin: 0 0 22px;
+            color: rgba(246, 250, 249, 0.9);
+            font-size: clamp(18px, 1.55vw, 25px);
+            font-weight: 300;
+            line-height: 1.55;
+            letter-spacing: 0.015em;
+        }
+
+        .zwl-hero__roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 22px;
+            margin: 0 0 28px;
+            color: rgba(235, 243, 241, 0.58);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+        }
+
+        .zwl-hero__roles span + span::before {
+            content: "/";
+            margin-right: 22px;
+            color: rgba(130, 244, 238, 0.5);
+        }
+
+        .zwl-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .zwl-actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 0 17px;
+            border: 1px solid rgba(130, 244, 238, 0.36);
+            border-radius: 999px;
+            background: rgba(4, 14, 16, 0.42);
+            color: #f7fbfa;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms ease;
+            pointer-events: none;
+        }
+
+        .zwl-screen.is-active .zwl-actions a {
+            pointer-events: auto;
+        }
+
+        .zwl-actions a:hover,
+        .zwl-actions a:focus-visible {
+            border-color: #82f4ee;
+            background: rgba(130, 244, 238, 0.14);
+            color: #fff;
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+        .zwl-actions a.zwl-actions__quiet {
+            border-color: transparent;
+            background: transparent;
+            color: rgba(244, 249, 248, 0.64);
+        }
+
+        .zwl-actions__arrow {
+            margin-left: 15px;
+            color: #82f4ee;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .zwl-scroll-cue {
+            position: absolute;
+            left: 50%;
+            bottom: clamp(28px, 4vh, 48px);
+            display: grid;
+            justify-items: center;
+            gap: 9px;
+            color: rgba(255, 255, 255, 0.44);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            transform: translateX(-50%);
+        }
+
+        .zwl-scroll-cue::after {
+            content: "";
+            width: 1px;
+            height: 28px;
+            background: linear-gradient(to bottom, #82f4ee, transparent);
+        }
+
+        .zwl-about {
+            align-items: center;
+            opacity: var(--zwl-about-opacity);
+        }
+
+        .zwl-about::before {
+            left: 0;
+            top: 7%;
+            width: min(760px, 52vw);
+            height: 86%;
+            background: radial-gradient(ellipse at 8% 50%, rgba(0, 0, 0, 0.88), rgba(0, 5, 7, 0.48) 48%, transparent 76%);
+        }
+
+        .zwl-about__panel {
+            position: relative;
+            width: min(520px, 44vw);
+            padding: 4px 0 4px clamp(24px, 2.2vw, 38px);
+        }
+
+        .zwl-about__title {
+            max-width: 500px;
+            margin: 0 0 18px;
+            font-size: clamp(31px, 2.7vw, 44px);
+            font-weight: 300;
+            line-height: 1.28;
+            letter-spacing: -0.035em;
+            text-shadow: 0 8px 36px rgba(0, 0, 0, 0.52);
+        }
+
+        .zwl-about__copy {
+            max-width: 500px;
+            margin: 0 0 20px;
+            color: rgba(238, 245, 243, 0.72);
+            font-size: clamp(13px, 0.94vw, 15px);
+            line-height: 1.76;
+        }
+
+        .zwl-about__copy p {
+            margin: 0 0 10px;
+        }
+
+        .zwl-about__facts {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px 22px;
+            margin: 0 0 22px;
+            padding: 15px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.13);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+        }
+
+        .zwl-fact {
+            display: grid;
+            gap: 4px;
+        }
+
+        .zwl-fact__label {
+            color: rgba(130, 244, 238, 0.66);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .zwl-fact__value {
+            color: rgba(247, 250, 249, 0.9);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .zwl-practice {
+            align-items: center;
+            justify-content: space-between;
+            gap: clamp(40px, 8vw, 140px);
+            opacity: var(--zwl-practice-opacity);
+        }
+
+        .zwl-practice::before {
+            left: 0;
+            top: 6%;
+            width: min(780px, 55vw);
+            height: 88%;
+            background: radial-gradient(ellipse at 7% 52%, rgba(0, 0, 0, 0.86), rgba(0, 5, 7, 0.44) 48%, transparent 76%);
+        }
+
+        .zwl-practice__content {
+            position: relative;
+            width: min(500px, 41vw);
+            padding: 4px 0 4px clamp(24px, 2.2vw, 38px);
+        }
+
+        .zwl-practice__title {
+            max-width: 500px;
+            margin: 0 0 18px;
+            font-size: clamp(32px, 3vw, 48px);
+            font-weight: 300;
+            line-height: 1.3;
+            letter-spacing: -0.04em;
+            text-shadow: 0 8px 36px rgba(0, 0, 0, 0.56);
+        }
+
+        .zwl-practice__summary {
+            max-width: 470px;
+            margin: 0 0 24px;
+            color: rgba(238, 245, 243, 0.7);
+            font-size: clamp(13px, 0.94vw, 15px);
+            line-height: 1.76;
+        }
+
+        .zwl-practice__services {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0;
+            max-width: 470px;
+            border-top: 1px solid rgba(255, 255, 255, 0.13);
+            border-left: 1px solid rgba(255, 255, 255, 0.13);
+        }
+
+        .zwl-service {
+            display: grid;
+            gap: 4px;
+            min-height: 66px;
+            padding: 13px 15px;
+            border-right: 1px solid rgba(255, 255, 255, 0.13);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+            background: rgba(1, 10, 12, 0.18);
+            backdrop-filter: blur(5px);
+        }
+
+        .zwl-service__cn {
+            color: rgba(248, 251, 250, 0.92);
+            font-size: 13px;
+            line-height: 1.35;
+        }
+
+        .zwl-service__en {
+            color: rgba(130, 244, 238, 0.56);
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .zwl-practice__workflow {
+            align-self: flex-end;
+            width: min(330px, 27vw);
+            margin-bottom: clamp(12px, 3vh, 38px);
+            padding-top: 15px;
+            border-top: 1px solid rgba(130, 244, 238, 0.34);
+            text-shadow: 0 4px 24px rgba(0, 0, 0, 0.82);
+        }
+
+        .zwl-workflow__title {
+            margin: 0 0 15px;
+            color: #82f4ee;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.13em;
+        }
+
+        .zwl-workflow__list {
+            display: grid;
+            gap: 13px;
+            margin: 0 0 18px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .zwl-workflow__list li {
+            display: grid;
+            grid-template-columns: 24px 1fr;
+            gap: 10px;
+        }
+
+        .zwl-workflow__index {
+            color: rgba(130, 244, 238, 0.48);
+            font-size: 9px;
+            font-weight: 700;
+            padding-top: 3px;
+        }
+
+        .zwl-workflow__text {
+            display: grid;
+            gap: 3px;
+        }
+
+        .zwl-workflow__text strong {
+            color: rgba(248, 251, 250, 0.9);
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .zwl-workflow__text span {
+            color: rgba(236, 243, 241, 0.48);
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .zwl-practice__status {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.46);
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .zwl-practice__status::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-right: 9px;
+            border-radius: 50%;
+            background: #82f4ee;
+            box-shadow: 0 0 10px rgba(130, 244, 238, 0.68);
+            vertical-align: 1px;
+        }
+
+        @media (max-width: 900px) {
+            .zwl-screen {
+                padding: 42px 28px 58px;
+            }
+
+            .zwl-hero__content,
+            .zwl-about__panel {
+                width: min(520px, 68vw);
+            }
+
+            .zwl-hero__name {
+                font-size: clamp(52px, 10vw, 76px);
+            }
+
+            .zwl-about::before {
+                width: 82vw;
+            }
+
+            .zwl-practice {
+                gap: 34px;
+            }
+
+            .zwl-practice__content {
+                width: min(500px, 58vw);
+            }
+
+            .zwl-practice__workflow {
+                width: min(280px, 30vw);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .zwl-screen {
+                padding: 86px 20px 56px;
+            }
+
+            .zwl-hero {
+                padding-bottom: 76px;
+            }
+
+            .zwl-hero__content,
+            .zwl-about__panel,
+            .zwl-practice__content {
+                width: 100%;
+                padding-left: 20px;
+            }
+
+            .zwl-hero__name {
+                margin-bottom: 14px;
+                font-size: clamp(46px, 15vw, 66px);
+            }
+
+            .zwl-hero__statement {
+                margin-bottom: 16px;
+                font-size: 17px;
+                line-height: 1.48;
+            }
+
+            .zwl-hero__roles {
+                gap: 7px 12px;
+                margin-bottom: 20px;
+                font-size: 10px;
+            }
+
+            .zwl-hero__roles span + span::before {
+                margin-right: 12px;
+            }
+
+            .zwl-scroll-cue {
+                left: auto;
+                right: 20px;
+                bottom: 24px;
+                transform: none;
+            }
+
+            .zwl-about {
+                align-items: flex-end;
+            }
+
+            .zwl-about::before {
+                top: auto;
+                bottom: 0;
+                width: 100%;
+                height: 82%;
+                background: linear-gradient(to top, rgba(0, 0, 0, 0.94), rgba(0, 5, 7, 0.68) 62%, transparent);
+            }
+
+            .zwl-about__title {
+                margin-bottom: 12px;
+                font-size: clamp(26px, 8vw, 34px);
+            }
+
+            .zwl-about__copy {
+                margin-bottom: 13px;
+                font-size: 12px;
+                line-height: 1.62;
+            }
+
+            .zwl-about__copy p {
+                margin-bottom: 7px;
+            }
+
+            .zwl-about__facts {
+                gap: 9px 14px;
+                margin-bottom: 14px;
+                padding: 11px 0;
+            }
+
+            .zwl-fact__value {
+                font-size: 10.5px;
+            }
+
+            .zwl-actions a {
+                min-height: 36px;
+                padding: 0 14px;
+                font-size: 10px;
+            }
+
+            .zwl-practice {
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            .zwl-practice::before {
+                top: auto;
+                bottom: 0;
+                width: 100%;
+                height: 86%;
+                background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 5, 7, 0.68) 64%, transparent);
+            }
+
+            .zwl-practice__title {
+                margin-bottom: 10px;
+                font-size: clamp(25px, 7.6vw, 33px);
+            }
+
+            .zwl-practice__summary {
+                margin-bottom: 13px;
+                font-size: 12px;
+                line-height: 1.58;
+            }
+
+            .zwl-service {
+                min-height: 52px;
+                padding: 9px 11px;
+            }
+
+            .zwl-service__cn {
+                font-size: 11px;
+            }
+
+            .zwl-practice__workflow {
+                width: 100%;
+                margin: 0;
+                padding: 10px 0 0 20px;
+            }
+
+            .zwl-workflow__title {
+                margin-bottom: 9px;
+            }
+
+            .zwl-workflow__list {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+
+            .zwl-workflow__list li {
+                grid-template-columns: 1fr;
+                gap: 3px;
+            }
+
+            .zwl-workflow__text span {
+                display: none;
+            }
+
+            .zwl-workflow__text strong {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-height: 720px) and (min-width: 641px) {
+            .zwl-screen {
+                padding-top: 70px;
+                padding-bottom: 34px;
+            }
+
+            .zwl-hero__name {
+                font-size: clamp(52px, 5.4vw, 76px);
+            }
+
+            .zwl-hero__statement {
+                margin-bottom: 16px;
+                font-size: 18px;
+            }
+
+            .zwl-hero__roles {
+                margin-bottom: 18px;
+            }
+
+            .zwl-about__title {
+                margin-bottom: 12px;
+                font-size: 30px;
+            }
+
+            .zwl-about__copy {
+                margin-bottom: 12px;
+                font-size: 12px;
+                line-height: 1.58;
+            }
+
+            .zwl-about__copy p {
+                margin-bottom: 6px;
+            }
+
+            .zwl-about__facts {
+                margin-bottom: 13px;
+                padding: 10px 0;
+            }
+
+            .zwl-practice__title {
+                margin-bottom: 10px;
+                font-size: 30px;
+            }
+
+            .zwl-practice__summary {
+                margin-bottom: 12px;
+                font-size: 12px;
+                line-height: 1.58;
+            }
+
+            .zwl-service {
+                min-height: 52px;
+                padding: 9px 12px;
+            }
+
+            .zwl-practice__workflow {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .zwl-screen,
+            .zwl-actions a {
+                transition: none;
+            }
+        }
+
+        .jimeng-intro {
+            position: fixed;
+            inset: 0;
+            z-index: 2147483000;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            background: #000;
+            opacity: 1;
+            transition: opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        .jimeng-intro.is-hiding {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .jimeng-intro__video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .jimeng-intro__sound {
+            position: fixed;
+            right: clamp(18px, 3vw, 38px);
+            bottom: clamp(18px, 3vw, 38px);
+            z-index: 1;
+            min-height: 38px;
+            padding: 0 16px;
+            border: 1px solid rgba(255, 255, 255, 0.34);
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.38);
+            color: #fff;
+            font-family: "nbarchitekt", Arial, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 180ms ease, background 180ms ease, border-color 180ms ease;
+            backdrop-filter: blur(12px);
+        }
+
+        .jimeng-intro__sound.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .jimeng-intro__sound:hover {
+            border-color: rgba(255, 255, 255, 0.68);
+            background: rgba(0, 0, 0, 0.56);
+        }
+
+        .zwl-scene-placeholder {
+            position: fixed;
+            inset: 0;
+            z-index: 19;
+            pointer-events: none;
+            background-color: #000;
+            background-image:
+                linear-gradient(90deg, rgba(0, 0, 0, 0.34), transparent 58%),
+                url("assets/intro/jimeng-poster.png");
+            background-position: center;
+            background-size: cover;
+            opacity: 1;
+            transition: opacity 720ms cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity;
+            display: none !important;
+        }
+
+        .jimeng-intro[hidden] {
+            display: none !important;
+        }
+
+        .zwl-scene-placeholder.is-hidden {
+            opacity: 0;
+        }
+
+        html.zwl-scene-loading .zwl-hero {
+            visibility: visible !important;
+            opacity: 1 !important;
+            transition: none !important;
+        }
+
+        html.zwl-scene-loading .zwl-hero .zwl-actions a {
+            pointer-events: auto;
+        }
+
+        @media (max-width: 640px) {
+            .zwl-scene-placeholder {
+                background-position: 58% center;
+            }
+        }
+
+        .zwl-actions--portfolio {
+            align-items: stretch;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .zwl-actions--portfolio .zwl-actions__primary {
+            position: relative;
+            justify-content: space-between;
+            min-width: clamp(285px, 24vw, 350px);
+            min-height: 70px;
+            padding: 11px 12px 11px 19px;
+            overflow: hidden;
+            border: 1px solid rgba(171, 255, 250, 0.9);
+            border-radius: 14px;
+            background:
+                linear-gradient(135deg, rgba(139, 255, 248, 0.98), rgba(68, 218, 207, 0.92));
+            box-shadow:
+                0 15px 38px rgba(20, 180, 172, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+            color: #041617;
+            letter-spacing: 0;
+            backdrop-filter: blur(14px);
+        }
+
+        .zwl-actions--portfolio .zwl-actions__primary::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(115deg, rgba(255, 255, 255, 0.2), transparent 44%);
+        }
+
+        .zwl-actions--portfolio .zwl-actions__primary:hover,
+        .zwl-actions--portfolio .zwl-actions__primary:focus-visible {
+            border-color: #d9fffc;
+            background: linear-gradient(135deg, #a6fff9, #5be8de);
+            box-shadow:
+                0 18px 46px rgba(34, 215, 204, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+            color: #021011;
+            transform: translateY(-3px);
+        }
+
+        .zwl-actions__copy {
+            position: relative;
+            display: grid;
+            gap: 5px;
+            text-align: left;
+        }
+
+        .zwl-actions__copy strong {
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: 0.025em;
+        }
+
+        .zwl-actions__copy small {
+            color: rgba(3, 24, 25, 0.66);
+            font-size: 9px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.1em;
+        }
+
+        .zwl-actions--portfolio .zwl-actions__primary .zwl-actions__arrow {
+            position: relative;
+            display: grid;
+            width: 38px;
+            height: 38px;
+            margin-left: 22px;
+            place-items: center;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background: rgba(2, 24, 25, 0.9);
+            color: #9afff8;
+            font-size: 20px;
+        }
+
+        .zwl-actions--portfolio .zwl-actions__quiet {
+            align-self: center;
+            min-height: 46px;
+            padding: 0 16px;
+            border-color: rgba(231, 247, 245, 0.12);
+            background: rgba(5, 17, 19, 0.58);
+            color: rgba(241, 249, 248, 0.78);
+            font-size: 10px;
+        }
+
+        .zwl-actions--portfolio .zwl-actions__quiet:hover,
+        .zwl-actions--portfolio .zwl-actions__quiet:focus-visible {
+            border-color: rgba(130, 244, 238, 0.48);
+            background: rgba(10, 37, 39, 0.76);
+            color: #ffffff;
+        }
+
+        @media (max-width: 640px) {
+            .zwl-actions--portfolio {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                width: min(100%, 350px);
+                gap: 9px;
+                margin-top: 18px;
+            }
+
+            .zwl-actions--portfolio .zwl-actions__primary {
+                width: 100%;
+                min-width: 0;
+                min-height: 62px;
+                padding: 9px 10px 9px 16px;
+            }
+
+            .zwl-actions__copy strong {
+                font-size: 14px;
+            }
+
+            .zwl-actions--portfolio .zwl-actions__primary .zwl-actions__arrow {
+                width: 34px;
+                height: 34px;
+                margin-left: 14px;
+            }
+
+            .zwl-actions--portfolio .zwl-actions__quiet {
+                justify-self: start;
+                min-height: 38px;
+                padding: 0 13px;
+            }
+        }
+    </style>
+    <script>
+        (function(){
+            var nativeDPR = Number(window.devicePixelRatio || 1);
+            var renderDPR = Math.min(nativeDPR, 1.5);
+            window.__ZWL_NATIVE_DPR__ = nativeDPR;
+            window.__ZWL_RENDER_DPR__ = renderDPR;
+            if (nativeDPR <= renderDPR) return;
+            try {
+                Object.defineProperty(window, "devicePixelRatio", {
+                    configurable: true,
+                    get: function(){ return renderDPR; }
+                });
+            } catch (error) {
+                window.__ZWL_RENDER_DPR__ = nativeDPR;
+            }
+        }());
+    </script>
+    <script>
+        (function(){
+            var nativeFetch = window.fetch;
+            if (!nativeFetch) return;
+            window.fetch = function(input, init) {
+                var url = typeof input === "string" ? input : (input && input.url) || "";
+                if (url.indexOf("us-central1-at-services.cloudfunctions.net/geo") !== -1) {
+                    return Promise.resolve(new Response(JSON.stringify({ location: { countryCode: "CN" } }), {
+                        status: 200,
+                        headers: { "Content-Type": "application/json" }
+                    }));
+                }
+                return nativeFetch.call(this, input, init);
+            };
+        }());
+    </script>
+    <script>
+        window.__ZWL_DISABLE_NATIVE_LOADER__ = true;
+        window.__ZWL_SITE_READY__ = false;
+        window._HYDRA_BEFORE_READY_OLD = window._HYDRA_BEFORE_READY;
+        window._HYDRA_BEFORE_READY = new Promise(function(resolve) {
+            var started = Date.now();
+            var previous = window._HYDRA_BEFORE_READY_OLD;
+
+            function installNativeLoaderBypass() {
+                if (!window.Class || !window.Component || !window.XComponent || !window.LoaderView) {
+                    if (Date.now() - started > 10000) return resolve();
+                    return setTimeout(installNativeLoaderBypass, 16);
+                }
+
+                Class((function LoaderGLUI(_params) {
+                    var _this = this;
+                    Inherit(_this, Component);
+                    Inherit(_this, XComponent);
+                    _this.fragName = "LoaderGLUI";
+                    _this.contexts = "Component";
+                    _this.params = _params;
+                    _this.isFragment = true;
+                    _this.progress = 1;
+                    _this.ready = function() { return Promise.resolve(); };
+                    _this.animateOut = function() { return Promise.resolve(); };
+                    _this.flag && _this.flag("__ready", true);
+                    _this.flag && _this.flag("isReady", true);
+                }));
+
+                Class((function LoaderView(_params) {
+                    var _this = this;
+                    var finished = false;
+                    Inherit(_this, Component);
+                    Inherit(_this, XComponent);
+                    _this.fragName = "LoaderView";
+                    _this.contexts = "Component";
+                    _this.params = _params || {};
+                    _this.isFragment = true;
+
+                    function revealSite() {
+                        if (finished) return;
+                        finished = true;
+                        window.__ZWL_SITE_READY__ = true;
+                        document.documentElement.style.setProperty("--baropacity", "0.9");
+                        _this.fire && _this.fire("Global/loadFinished");
+                        window.dispatchEvent(new CustomEvent("zwl:site-ready"));
+                        _this.destroy && _this.destroy();
+                    }
+
+                    if (_this.params.loader && _this.bind && window.Events) {
+                        _this.bind(_this.params.loader, Events.COMPLETE, revealSite);
+                    } else {
+                        setTimeout(revealSite, 0);
+                    }
+
+                    _this.ready = function() { return Promise.resolve(); };
+                    _this.flag && _this.flag("__ready", true);
+                    _this.flag && _this.flag("isReady", true);
+                }));
+
+                Promise.resolve(previous).then(resolve, resolve);
+            }
+
+            installNativeLoaderBypass();
+        });
+
+        !function(){
+            window._ENV_='production';
+            window._CMS_="%CMS%";
+            window._UNSUPPORTED_PAGE_="unsupported.html";
+            try {
+                eval("let obj = {}; obj?.prop");
+            } catch(e) {
+                window.location.replace(window._UNSUPPORTED_PAGE_);
+                return;
+            }
+            window._CACHE_="1780406240914";
+            window.UIL_STATIC_PATH="assets/data/uil.1780406240914.json?v=20260716-refined";
+            var s="assets/js/app."+window._CACHE_+".js?v=20260716-instant";
+            var h=document.head;
+            var started=false;
+            function startApp(){
+                if(started)return;
+                started=true;
+                var e=document.createElement("script");
+                e.src=s;
+                e.async=true;
+                e.fetchPriority="low";
+                h.appendChild(e);
+            }
+            window.__ZWL_START_APP__=startApp;
+            setTimeout(startApp,1600);
+        }();
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        function loadAnalytics() {
+            if (window.__ZWL_ANALYTICS_LOADED__) return;
+            window.__ZWL_ANALYTICS_LOADED__ = true;
+            var script = document.createElement("script");
+            script.async = true;
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-J7TMDT4F8N";
+            document.head.appendChild(script);
+            gtag('js', new Date());
+            gtag('config', 'G-J7TMDT4F8N');
+        }
+        window.addEventListener("load", function() {
+            if (window.requestIdleCallback) {
+                window.requestIdleCallback(loadAnalytics, { timeout: 15000 });
+            } else {
+                setTimeout(loadAnalytics, 15000);
+            }
+        }, { once: true });
+    </script>
+</head>
+<body>
+    <noscript><p style="background: black; color: white; font-size: 20px; display: inline; font-family: Helvetica, Arial, sans-serif; padding: 10px;">Please enable javascript</p></noscript>
+
+    <section class="jimeng-intro" id="jimengIntro" aria-hidden="true">
+        <video class="jimeng-intro__video" id="jimengIntroVideo" autoplay muted playsinline preload="auto" poster="assets/intro/jimeng-poster.webp?v=20260716-hd720">
+            <source src="assets/intro/jimeng-opening.mp4?v=20260716-hd720" type="video/mp4">
+        </video>
+        <button class="jimeng-intro__sound" id="jimengIntroSound" type="button" aria-label="Turn sound on">SOUND ON</button>
+    </section>
+
+    <div class="zwl-scene-placeholder" id="zwlScenePlaceholder" aria-hidden="true"></div>
+
+    <script>
+        (function(){
+            var placeholder = document.getElementById("zwlScenePlaceholder");
+            if (placeholder) placeholder.setAttribute("hidden", "");
+            document.documentElement.classList.remove("zwl-scene-loading");
+        }());
+    </script>
+
+    <script>
+        (function(){
+            var intro = document.getElementById("jimengIntro");
+            var video = document.getElementById("jimengIntroVideo");
+            var soundButton = document.getElementById("jimengIntroSound");
+            var closed = false;
+            var fallbackTimer = null;
+            var transitionTimer = null;
+            var audioUnlocked = false;
+            var transitionLeadSeconds = 0.24;
+
+            function resetSiteToStart() {
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                if (document.body) document.body.scrollTop = 0;
+                var fxScroller = document.querySelector(".FXScroll");
+                if (fxScroller) {
+                    fxScroller.scrollTop = 0;
+                    fxScroller.scrollLeft = 0;
+                }
+            }
+
+            window.addEventListener("zwl:site-ready", function(){
+                resetSiteToStart();
+                requestAnimationFrame(resetSiteToStart);
+            }, { once: true });
+
+            function startApp() {
+                resetSiteToStart();
+                if (window.__ZWL_START_APP__) window.__ZWL_START_APP__();
+            }
+
+            function setSoundButtonVisible(visible) {
+                if (!soundButton) return;
+                soundButton.classList.toggle("is-visible", !!visible && !closed && !audioUnlocked);
+            }
+
+            function removeAudioUnlockListeners() {
+                window.removeEventListener("pointerdown", unlockAudioFromGesture, true);
+                window.removeEventListener("touchstart", unlockAudioFromGesture, true);
+                window.removeEventListener("keydown", unlockAudioFromGesture, true);
+            }
+
+            function closeIntro() {
+                if (closed || !intro) return;
+                closed = true;
+                if (fallbackTimer) clearTimeout(fallbackTimer);
+                if (transitionTimer) clearTimeout(transitionTimer);
+                removeAudioUnlockListeners();
+                setSoundButtonVisible(false);
+                resetSiteToStart();
+                intro.classList.add("is-hiding");
+                setTimeout(function(){
+                    if (intro && intro.parentNode) intro.parentNode.removeChild(intro);
+                    resetSiteToStart();
+                    requestAnimationFrame(resetSiteToStart);
+                    window.__ZWL_INTRO_CLOSED__ = true;
+                    window.dispatchEvent(new CustomEvent("zwl:intro-closed"));
+                }, 280);
+            }
+
+            function scheduleFallback(ms) {
+                if (fallbackTimer) clearTimeout(fallbackTimer);
+                fallbackTimer = setTimeout(closeIntro, ms);
+            }
+
+            function scheduleSeamlessTransition() {
+                if (closed || !video) return;
+                var duration = Number(video.duration);
+                var currentTime = Number(video.currentTime) || 0;
+                if (!(duration > 0) || !isFinite(duration)) return;
+                if (transitionTimer) clearTimeout(transitionTimer);
+                transitionTimer = setTimeout(
+                    closeIntro,
+                    Math.max(0, (duration - currentTime - transitionLeadSeconds) * 1000)
+                );
+            }
+
+            function addAudioUnlockListeners() {
+                window.addEventListener("pointerdown", unlockAudioFromGesture, true);
+                window.addEventListener("touchstart", unlockAudioFromGesture, true);
+                window.addEventListener("keydown", unlockAudioFromGesture, true);
+            }
+
+            function unlockAudioFromGesture() {
+                unlockAudio();
+            }
+
+            function unlockAudio() {
+                if (closed || audioUnlocked || !video) return;
+                video.muted = false;
+                video.defaultMuted = false;
+                video.volume = 1;
+                var attempt = video.play && video.play();
+                if (attempt && attempt.catch) {
+                    attempt.then(function(){
+                        audioUnlocked = true;
+                        setSoundButtonVisible(false);
+                        removeAudioUnlockListeners();
+                    }).catch(function(){
+                        video.muted = true;
+                        video.defaultMuted = true;
+                        setSoundButtonVisible(true);
+                    });
+                }
+            }
+
+            if (!video) {
+                startApp();
+                closeIntro();
+                return;
+            }
+
+            video.muted = true;
+            video.defaultMuted = true;
+            video.volume = 1;
+            setSoundButtonVisible(true);
+            addAudioUnlockListeners();
+
+            if (soundButton) {
+                soundButton.addEventListener("click", function(event){
+                    event.preventDefault();
+                    event.stopPropagation();
+                    unlockAudio();
+                });
+            }
+
+            video.addEventListener("playing", function(){
+                startApp();
+                scheduleSeamlessTransition();
+            }, { once: true });
+            video.addEventListener("ended", closeIntro, { once: true });
+            video.addEventListener("error", function(){
+                startApp();
+                closeIntro();
+            }, { once: true });
+            video.addEventListener("timeupdate", function(){
+                if (video.duration && video.currentTime >= video.duration - transitionLeadSeconds) closeIntro();
+            });
+            video.addEventListener("loadedmetadata", function(){
+                var duration = Number(video.duration);
+                if (duration > 0 && isFinite(duration)) {
+                    scheduleSeamlessTransition();
+                    scheduleFallback(Math.ceil(duration * 1000) + 300);
+                }
+            }, { once: true });
+
+            var playAttempt = video.play && video.play();
+            if (playAttempt && playAttempt.then) {
+                playAttempt.then(startApp).catch(function(){});
+            }
+            scheduleFallback(10000);
+        }());
+    </script>
+
+    <main class="zwl-personal-layer" aria-label="张炜林个人网站">
+        <section class="zwl-screen zwl-hero is-active" id="zwlHero" aria-label="个人首页">
+            <div class="zwl-hero__content">
+                <p class="zwl-eyebrow"><span class="zwl-eyebrow__index">01</span> ZHANG WEILIN / VISUAL STORYTELLER</p>
+                <h1 class="zwl-hero__name">张炜林</h1>
+                <p class="zwl-hero__statement">以影像为语言，让创意与 AI<br>在叙事中相遇。</p>
+                <div class="zwl-hero__roles" aria-label="职业方向">
+                    <span>AIGC 影像创作</span>
+                    <span>新媒体编导</span>
+                </div>
+                <nav class="zwl-actions zwl-actions--portfolio" aria-label="首页快捷入口">
+                    <a class="zwl-actions__primary" href="https://zhangweilin123-portfolio.onrender.com/">
+                        <span class="zwl-actions__copy"><strong>查看精选作品</strong><small>SELECTED FILMS · AIGC WORKS</small></span>
+                        <span class="zwl-actions__arrow" aria-hidden="true">→</span>
+                    </a>
+                    <a class="zwl-actions__quiet" href="tel:15010222352">联系合作</a>
+                </nav>
+            </div>
+            <div class="zwl-scroll-cue" aria-hidden="true">SCROLL TO EXPLORE</div>
+        </section>
+
+        <section class="zwl-screen zwl-about" id="zwlAbout" aria-label="关于张炜林" aria-hidden="true">
+            <div class="zwl-about__panel">
+                <p class="zwl-eyebrow"><span class="zwl-eyebrow__index">02</span> ABOUT / 关于我</p>
+                <h2 class="zwl-about__title">在技术与叙事之间，<br>寻找影像的新表达。</h2>
+                <div class="zwl-about__copy">
+                    <p>我是张炜林，来自北京，毕业于首都师范大学科德学院广播电视编导专业，主修新媒体编导方向。</p>
+                    <p>我专注于影像内容与 AI 技术的融合，参与过 AIGC 广告全流程制作，也独立完成过多部剧情片拍摄。创作中，我关注镜头语言、叙事节奏与情绪表达，并持续实践文生视频、图生视频等新工具。</p>
+                </div>
+                <div class="zwl-about__facts" aria-label="个人信息与能力">
+                    <div class="zwl-fact">
+                        <span class="zwl-fact__label">BASED IN</span>
+                        <span class="zwl-fact__value">北京 · Beijing</span>
+                    </div>
+                    <div class="zwl-fact">
+                        <span class="zwl-fact__label">CERTIFICATE</span>
+                        <span class="zwl-fact__value">高级广播电视文艺编导</span>
+                    </div>
+                    <div class="zwl-fact">
+                        <span class="zwl-fact__label">FOCUS</span>
+                        <span class="zwl-fact__value">AIGC 广告 · 剧情短片</span>
+                    </div>
+                    <div class="zwl-fact">
+                        <span class="zwl-fact__label">CAPABILITIES</span>
+                        <span class="zwl-fact__value">策划 · 拍摄 · 生成 · 剪辑</span>
+                    </div>
+                </div>
+                <nav class="zwl-actions zwl-actions--portfolio" aria-label="关于页快捷入口">
+                    <a class="zwl-actions__primary" href="https://zhangweilin123-portfolio.onrender.com/">
+                        <span class="zwl-actions__copy"><strong>进入作品集</strong><small>VIEW PROJECTS · CREATIVE CASES</small></span>
+                        <span class="zwl-actions__arrow" aria-hidden="true">→</span>
+                    </a>
+                    <a class="zwl-actions__quiet" href="tel:15010222352">联系合作 · 150 1022 2352</a>
+                </nav>
+            </div>
+        </section>
+
+        <section class="zwl-screen zwl-practice" id="zwlPractice" aria-label="创作方向与工作方式" aria-hidden="true">
+            <div class="zwl-practice__content">
+                <p class="zwl-eyebrow"><span class="zwl-eyebrow__index">03</span> CREATIVE PRACTICE / 创作方式</p>
+                <h2 class="zwl-practice__title">从一个想法开始，<br>完成一支能够被记住的影像。</h2>
+                <p class="zwl-practice__summary">我将创意策划、AI 视觉生成、实拍与后期整合为一条完整的创作链路，让技术服务于故事、情绪与表达。</p>
+                <div class="zwl-practice__services" aria-label="创作能力">
+                    <div class="zwl-service">
+                        <span class="zwl-service__cn">创意策划</span>
+                        <span class="zwl-service__en">CREATIVE DIRECTION</span>
+                    </div>
+                    <div class="zwl-service">
+                        <span class="zwl-service__cn">脚本分镜</span>
+                        <span class="zwl-service__en">SCRIPT &amp; STORYBOARD</span>
+                    </div>
+                    <div class="zwl-service">
+                        <span class="zwl-service__cn">AI 视觉开发</span>
+                        <span class="zwl-service__en">AIGC VISUAL</span>
+                    </div>
+                    <div class="zwl-service">
+                        <span class="zwl-service__cn">拍摄与剪辑</span>
+                        <span class="zwl-service__en">PRODUCTION &amp; EDITING</span>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="zwl-practice__workflow" aria-label="工作流程">
+                <p class="zwl-workflow__title">WORKFLOW / 工作流程</p>
+                <ol class="zwl-workflow__list">
+                    <li>
+                        <span class="zwl-workflow__index">01</span>
+                        <span class="zwl-workflow__text"><strong>概念与脚本</strong><span>明确故事、受众与视觉方向</span></span>
+                    </li>
+                    <li>
+                        <span class="zwl-workflow__index">02</span>
+                        <span class="zwl-workflow__text"><strong>视觉开发</strong><span>风格探索、生成测试与分镜预演</span></span>
+                    </li>
+                    <li>
+                        <span class="zwl-workflow__index">03</span>
+                        <span class="zwl-workflow__text"><strong>制作完成</strong><span>拍摄、生成、剪辑与最终交付</span></span>
+                    </li>
+                </ol>
+                <p class="zwl-practice__status">OPEN FOR COLLABORATION · 2026</p>
+            </aside>
+        </section>
+    </main>
+
+
+    <script>
+        (function(){
+            var root = document.documentElement;
+            var hero = document.getElementById("zwlHero");
+            var about = document.getElementById("zwlAbout");
+            var practice = document.getElementById("zwlPractice");
+            var title = "张炜林个人网站 | AIGC 影像创作 / 新媒体编导";
+            var lastHeroOpacity = -1;
+            var lastAboutOpacity = -1;
+            var lastPracticeOpacity = -1;
+            var scroller = null;
+            var framePending = false;
+            var scrollerObserver = null;
+            var renderTuneAttempts = 0;
+
+            function keepTitle() {
+                if (document.title !== title) document.title = title;
+            }
+
+            function clamp(value, min, max) {
+                return Math.min(Math.max(value, min), max);
+            }
+
+            function smoothstep(edgeA, edgeB, value) {
+                var x = clamp((value - edgeA) / (edgeB - edgeA), 0, 1);
+                return x * x * (3 - 2 * x);
+            }
+
+            function update() {
+                var scrollTop = scroller ? scroller.scrollTop : (window.scrollY || 0);
+                var viewportHeight = scroller ? scroller.clientHeight : window.innerHeight;
+                var progress = scrollTop / Math.max(viewportHeight, 1);
+                var heroOpacity = 1 - smoothstep(0.18, 0.72, progress);
+                var aboutOpacity = smoothstep(0.52, 0.94, progress) * (1 - smoothstep(1.5, 2.02, progress));
+                var practiceOpacity = smoothstep(1.62, 2.08, progress) * (1 - smoothstep(2.9, 3.42, progress));
+
+                if (Math.abs(heroOpacity - lastHeroOpacity) > 0.0001) {
+                    lastHeroOpacity = heroOpacity;
+                    root.style.setProperty("--zwl-hero-opacity", heroOpacity.toFixed(4));
+                    if (hero) {
+                        hero.classList.toggle("is-active", heroOpacity > 0.08);
+                        hero.setAttribute("aria-hidden", heroOpacity > 0.08 ? "false" : "true");
+                    }
+                }
+
+                if (Math.abs(aboutOpacity - lastAboutOpacity) > 0.0001) {
+                    lastAboutOpacity = aboutOpacity;
+                    root.style.setProperty("--zwl-about-opacity", aboutOpacity.toFixed(4));
+                    if (about) {
+                        about.classList.toggle("is-active", aboutOpacity > 0.08);
+                        about.setAttribute("aria-hidden", aboutOpacity > 0.08 ? "false" : "true");
+                    }
+                }
+
+                if (Math.abs(practiceOpacity - lastPracticeOpacity) > 0.0001) {
+                    lastPracticeOpacity = practiceOpacity;
+                    root.style.setProperty("--zwl-practice-opacity", practiceOpacity.toFixed(4));
+                    if (practice) {
+                        practice.classList.toggle("is-active", practiceOpacity > 0.08);
+                        practice.setAttribute("aria-hidden", practiceOpacity > 0.08 ? "false" : "true");
+                    }
+                }
+
+            }
+
+            function scheduleUpdate() {
+                if (framePending) return;
+                framePending = true;
+                requestAnimationFrame(function() {
+                    framePending = false;
+                    update();
+                });
+            }
+
+            function bindScroller() {
+                var nextScroller = document.querySelector(".FXScroll");
+                if (nextScroller === scroller) return;
+                if (scroller) scroller.removeEventListener("scroll", scheduleUpdate);
+                scroller = nextScroller;
+                if (scroller) {
+                    scroller.addEventListener("scroll", scheduleUpdate, { passive: true });
+                    if (scrollerObserver) scrollerObserver.disconnect();
+                }
+                scheduleUpdate();
+            }
+
+            function tuneRenderer() {
+                if (!window.Render) {
+                    renderTuneAttempts += 1;
+                    if (renderTuneAttempts < 250) setTimeout(tuneRenderer, 80);
+                    return;
+                }
+                var memory = Number(navigator.deviceMemory || 0);
+                var cores = Number(navigator.hardwareConcurrency || 0);
+                var mobile = window.matchMedia("(max-width: 900px)").matches;
+                var lowPower = (memory && memory <= 4) || (cores && cores <= 4);
+                var targetFPS = mobile ? 30 : 45;
+                window.Render.capFPS = targetFPS;
+                document.addEventListener("visibilitychange", function() {
+                    window.Render.capFPS = document.hidden ? 10 : targetFPS;
+                }, { passive: true });
+            }
+
+            keepTitle();
+            setTimeout(keepTitle, 800);
+            setTimeout(keepTitle, 1800);
+            window.addEventListener("scroll", scheduleUpdate, { passive: true });
+            window.addEventListener("resize", scheduleUpdate, { passive: true });
+            window.addEventListener("zwl:site-ready", bindScroller, { once: true });
+            scrollerObserver = new MutationObserver(bindScroller);
+            scrollerObserver.observe(document.documentElement, { childList: true, subtree: true });
+            bindScroller();
+            scheduleUpdate();
+            tuneRenderer();
+        }());
+    </script>
+    <script src="assets/film-styles.js?v=20260716-index-layout-6"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "links": [
+    {
+      "title": "电话",
+      "url": "tel:15010222352",
+      "id": "zwl-phone"
+    },
+    {
+      "title": "北京",
+      "url": "#",
+      "id": "zwl-location"
+    },
+    {
+      "title": "AIGC影像创作者",
+      "url": "#work",
+      "id": "zwl-role"
+    },
+    {
+      "title": "新媒体编导",
+      "url": "#work",
+      "id": "zwl-director"
+    }
+  ],
+  "globalType": "contact",
+  "createdAt": "2024-02-05T19:36:14.328Z",
+  "updatedAt": "2026-07-05T17:17:41.505Z",
+  "id": "65c138ae3f7e83834f95b658"
+}

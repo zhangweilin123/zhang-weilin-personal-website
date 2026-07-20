@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360">
+  <style>
+    .title { font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif; font-size: 62px; font-weight: 700; fill: #fff; }
+    .meta { font-family: Arial, sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 6px; fill: #cf9bff; }
+  </style>
+  <text class="meta" x="400" y="108" text-anchor="middle">VIS 10</text>
+  <line x1="290" y1="132" x2="510" y2="132" stroke="#cf9bff" stroke-width="2" opacity="0.8"/>
+  <text class="title" x="400" y="222" text-anchor="middle">巴洛克风</text>
+  <text class="meta" x="400" y="276" text-anchor="middle" opacity="0.88">视觉美学</text>
+</svg>

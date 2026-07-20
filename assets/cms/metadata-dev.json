@@ -1,0 +1,164 @@
+{
+  "title": "张炜林 · AIGC影像创作者 / 新媒体编导",
+  "description": "张炜林，来自北京，手机15010222352。本科毕业于首都师范大学科德学院，广播电视编导（新媒体编导）专业。参与过AIGC广告全流程制作和剪辑，独立拍摄过多部剧情片，拥有高级广播电视文艺编导证，对多个最新视频模型做过文生视频和图生视频，并对AI新技术和新消息保持持续关注。",
+  "globalType": "metadata",
+  "createdAt": "2023-11-09T18:15:27.758Z",
+  "updatedAt": "2026-07-05T17:17:41.502Z",
+  "ogImage": {
+    "id": "65b8039ecce4b7a6989f19c5",
+    "prefix": "media",
+    "filename": "social.jpg",
+    "mimeType": "image/jpeg",
+    "filesize": 210221,
+    "width": 1200,
+    "height": 630,
+    "sizes": {
+      "i200px": {
+        "width": 200,
+        "height": 105,
+        "mimeType": "image/jpeg",
+        "filesize": 6518,
+        "filename": "social-200x105.jpg",
+        "url": "media/social-200x105.jpg"
+      },
+      "i400px": {
+        "width": 400,
+        "height": 210,
+        "mimeType": "image/jpeg",
+        "filesize": 23068,
+        "filename": "social-400x210.jpg",
+        "url": "media/social-400x210.jpg"
+      },
+      "i600px": {
+        "width": 600,
+        "height": 315,
+        "mimeType": "image/jpeg",
+        "filesize": 50308,
+        "filename": "social-600x315.jpg",
+        "url": "media/social-600x315.jpg"
+      },
+      "i1024px": {
+        "width": 1024,
+        "height": 538,
+        "mimeType": "image/jpeg",
+        "filesize": 130262,
+        "filename": "social-1024x538.jpg",
+        "url": "media/social-1024x538.jpg"
+      },
+      "i1280px": {
+        "width": 1280,
+        "height": 672,
+        "mimeType": "image/jpeg",
+        "filesize": 178050,
+        "filename": "social-1280x672.jpg",
+        "url": "media/social-1280x672.jpg"
+      },
+      "i1600px": {
+        "width": 1600,
+        "height": 840,
+        "mimeType": "image/jpeg",
+        "filesize": 246737,
+        "filename": "social-1600x840.jpg",
+        "url": "media/social-1600x840.jpg"
+      },
+      "i2000px": {
+        "width": 2000,
+        "height": 1050,
+        "mimeType": "image/jpeg",
+        "filesize": 335183,
+        "filename": "social-2000x1050.jpg",
+        "url": "media/social-2000x1050.jpg"
+      },
+      "thumbnail": {
+        "width": 400,
+        "height": 300,
+        "mimeType": "image/jpeg",
+        "filesize": 33096,
+        "filename": "social-400x300.jpg",
+        "url": "media/social-400x300.jpg"
+      }
+    },
+    "createdAt": "2024-01-29T19:59:26.984Z",
+    "updatedAt": "2024-01-29T19:59:26.984Z",
+    "url": "media/social.jpg"
+  },
+  "twitterImage": {
+    "id": "65b8039ecce4b7a6989f19c5",
+    "prefix": "media",
+    "filename": "social.jpg",
+    "mimeType": "image/jpeg",
+    "filesize": 210221,
+    "width": 1200,
+    "height": 630,
+    "sizes": {
+      "i200px": {
+        "width": 200,
+        "height": 105,
+        "mimeType": "image/jpeg",
+        "filesize": 6518,
+        "filename": "social-200x105.jpg",
+        "url": "media/social-200x105.jpg"
+      },
+      "i400px": {
+        "width": 400,
+        "height": 210,
+        "mimeType": "image/jpeg",
+        "filesize": 23068,
+        "filename": "social-400x210.jpg",
+        "url": "media/social-400x210.jpg"
+      },
+      "i600px": {
+        "width": 600,
+        "height": 315,
+        "mimeType": "image/jpeg",
+        "filesize": 50308,
+        "filename": "social-600x315.jpg",
+        "url": "media/social-600x315.jpg"
+      },
+      "i1024px": {
+        "width": 1024,
+        "height": 538,
+        "mimeType": "image/jpeg",
+        "filesize": 130262,
+        "filename": "social-1024x538.jpg",
+        "url": "media/social-1024x538.jpg"
+      },
+      "i1280px": {
+        "width": 1280,
+        "height": 672,
+        "mimeType": "image/jpeg",
+        "filesize": 178050,
+        "filename": "social-1280x672.jpg",
+        "url": "media/social-1280x672.jpg"
+      },
+      "i1600px": {
+        "width": 1600,
+        "height": 840,
+        "mimeType": "image/jpeg",
+        "filesize": 246737,
+        "filename": "social-1600x840.jpg",
+        "url": "media/social-1600x840.jpg"
+      },
+      "i2000px": {
+        "width": 2000,
+        "height": 1050,
+        "mimeType": "image/jpeg",
+        "filesize": 335183,
+        "filename": "social-2000x1050.jpg",
+        "url": "media/social-2000x1050.jpg"
+      },
+      "thumbnail": {
+        "width": 400,
+        "height": 300,
+        "mimeType": "image/jpeg",
+        "filesize": 33096,
+        "filename": "social-400x300.jpg",
+        "url": "media/social-400x300.jpg"
+      }
+    },
+    "createdAt": "2024-01-29T19:59:26.984Z",
+    "updatedAt": "2024-01-29T19:59:26.984Z",
+    "url": "media/social.jpg"
+  },
+  "id": "654d21bf6dacdff93f2d88ce"
+}
