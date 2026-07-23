@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="zwl-lite">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -25,6 +25,14 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/meta/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/meta/favicon-16x16.png">
     <link rel="manifest" href="assets/meta/manifest.json">
+    <link rel="preload" href="assets/intro/jimeng-opening.mp4?v=20260716-hd720" as="video" type="video/mp4" fetchpriority="high">
+    <link rel="preload" href="assets/intro/jimeng-poster.webp?v=20260716-hd720" as="image" type="image/webp" fetchpriority="high">
+    <link rel="stylesheet" href="assets/film-styles.css?v=20260716-index-layout-6">
+    <link rel="preload" href="assets/js/app.1780406240914.js?v=20260716-instant" as="script" fetchpriority="low">
+    <link rel="preload" href="assets/data/uil.1780406240914.json?v=20260716-refined" as="fetch" crossorigin="anonymous" fetchpriority="low">
+    <link rel="preload" href="assets/shaders/compiled.vs" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="assets/js/lib/_draco/draco_decoder.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
+    <link rel="preload" href="assets/js/lib/basis_transcoder.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
     <link rel="preload" href="assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="mask-icon" href="assets/meta/safari-pinned-tab.svg" color="#333333">
@@ -63,7 +71,6 @@
                 url(assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.otf) format("opentype");
             font-style: normal;
             font-weight: 400;
-            font-display: swap;
         }
 
         @font-face {
@@ -74,7 +81,6 @@
                 url(assets/fonts/NBArchitektStd-Light-export/NBArchitektStd-Light.otf) format("opentype");
             font-style: normal;
             font-weight: 300;
-            font-display: swap;
         }
 
         @font-face {
@@ -85,7 +91,6 @@
                 url(assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.otf) format("opentype");
             font-style: normal;
             font-weight: 700;
-            font-display: swap;
         }
 
         .ios,
@@ -1061,68 +1066,6 @@
                 padding: 0 13px;
             }
         }
-
-        /*
-         * Keep the personalized content independent from the legacy WebGL scene
-         * so it paints, scrolls and remains interactive on slow networks.
-         */
-        html.zwl-lite,
-        html.zwl-lite body {
-            width: 100%;
-            height: auto;
-            min-height: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-            touch-action: pan-y;
-            background: #000;
-            scroll-behavior: smooth;
-            scroll-snap-type: y proximity;
-        }
-
-        html.zwl-lite body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            background:
-                radial-gradient(circle at 16% 22%, rgba(53, 224, 218, 0.09), transparent 30%),
-                radial-gradient(circle at 82% 72%, rgba(29, 108, 118, 0.08), transparent 34%),
-                linear-gradient(145deg, #020708 0%, #000 52%, #030607 100%);
-        }
-
-        .zwl-lite .zwl-personal-layer {
-            position: relative;
-            inset: auto;
-            z-index: 1;
-            pointer-events: auto;
-        }
-
-        .zwl-lite .zwl-screen {
-            position: relative;
-            inset: auto;
-            min-height: 100svh;
-            opacity: 1 !important;
-            visibility: visible !important;
-            transition: none;
-            scroll-snap-align: start;
-            scroll-snap-stop: normal;
-        }
-
-        .zwl-lite .zwl-screen + .zwl-screen {
-            border-top: 1px solid rgba(130, 244, 238, 0.08);
-        }
-
-        .zwl-lite .zwl-actions a {
-            pointer-events: auto;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html.zwl-lite,
-            html.zwl-lite body {
-                scroll-behavior: auto;
-            }
-        }
     </style>
     <script>
         (function(){
@@ -1211,6 +1154,7 @@
                     } else {
                         setTimeout(revealSite, 0);
                     }
+                    setTimeout(revealSite, 1200);
 
                     _this.ready = function() { return Promise.resolve(); };
                     _this.flag && _this.flag("__ready", true);
@@ -1235,7 +1179,7 @@
             }
             window._CACHE_="1780406240914";
             window.UIL_STATIC_PATH="assets/data/uil.1780406240914.json?v=20260716-refined";
-            var s="assets/js/app."+window._CACHE_+".js?v=20260723-nonblocking";
+            var s="assets/js/app."+window._CACHE_+".js?v=20260716-instant";
             var h=document.head;
             var started=false;
             function startApp(){
@@ -1248,15 +1192,7 @@
                 h.appendChild(e);
             }
             window.__ZWL_START_APP__=startApp;
-            var shouldEnableWebGL = /(?:^|[?&])webgl=1(?:&|$)/.test(window.location.search);
-            if (shouldEnableWebGL) {
-                document.documentElement.classList.remove("zwl-lite");
-                if (window.requestIdleCallback) {
-                    window.requestIdleCallback(startApp,{timeout:2500});
-                } else {
-                    setTimeout(startApp,800);
-                }
-            }
+            setTimeout(startApp,1600);
         }();
     </script>
     <script>
@@ -1283,6 +1219,13 @@
 </head>
 <body>
     <noscript><p style="background: black; color: white; font-size: 20px; display: inline; font-family: Helvetica, Arial, sans-serif; padding: 10px;">Please enable javascript</p></noscript>
+
+    <section class="jimeng-intro" id="jimengIntro" aria-hidden="true">
+        <video class="jimeng-intro__video" id="jimengIntroVideo" autoplay muted playsinline preload="auto" poster="assets/intro/jimeng-poster.webp?v=20260716-hd720">
+            <source src="assets/intro/jimeng-opening.mp4?v=20260716-hd720" type="video/mp4">
+        </video>
+        <button class="jimeng-intro__sound" id="jimengIntroSound" type="button" aria-label="Turn sound on">SOUND ON</button>
+    </section>
 
     <div class="zwl-scene-placeholder" id="zwlScenePlaceholder" aria-hidden="true"></div>
 
@@ -1402,6 +1345,8 @@
             }
 
             if (!video) {
+                startApp();
+                closeIntro();
                 return;
             }
 
@@ -1444,6 +1389,7 @@
                 playAttempt.then(startApp).catch(function(){});
             }
             scheduleFallback(10000);
+            setTimeout(function(){ startApp(); closeIntro(); }, 7000);
         }());
     </script>
 
@@ -1566,15 +1512,6 @@
             var scrollerObserver = null;
             var renderTuneAttempts = 0;
 
-            if (root.classList.contains("zwl-lite")) {
-                [hero, about, practice].forEach(function(section) {
-                    if (!section) return;
-                    section.classList.add("is-active");
-                    section.setAttribute("aria-hidden", "false");
-                });
-                return;
-            }
-
             function keepTitle() {
                 if (document.title !== title) document.title = title;
             }
@@ -1676,5 +1613,6 @@
             tuneRenderer();
         }());
     </script>
+    <script src="assets/film-styles.js?v=20260716-index-layout-6"></script>
 </body>
 </html>
