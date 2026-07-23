@@ -28,8 +28,8 @@
     <link rel="preload" href="assets/intro/jimeng-opening.mp4?v=20260716-hd720" as="video" type="video/mp4" fetchpriority="high">
     <link rel="preload" href="assets/intro/jimeng-poster.webp?v=20260716-hd720" as="image" type="image/webp" fetchpriority="high">
     <link rel="stylesheet" href="assets/film-styles.css?v=20260716-index-layout-6">
-    <link rel="preload" href="assets/js/app.1780406240914.js?v=20260716-instant" as="script" fetchpriority="low">
-    <link rel="preload" href="assets/data/uil.1780406240914.json?v=20260716-refined" as="fetch" crossorigin="anonymous" fetchpriority="low">
+    <link rel="preload" href="assets/js/app.1780406240914.js?v=20260716-instant" as="script" fetchpriority="high">
+    <link rel="preload" href="assets/data/uil.1780406240914.json?v=20260716-refined" as="fetch" crossorigin="anonymous" fetchpriority="high">
     <link rel="preload" href="assets/shaders/compiled.vs" as="fetch" crossorigin="anonymous">
     <link rel="preload" href="assets/js/lib/_draco/draco_decoder.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
     <link rel="preload" href="assets/js/lib/basis_transcoder.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
@@ -1066,6 +1066,86 @@
                 padding: 0 13px;
             }
         }
+
+        .zwl-load-progress {
+            position: fixed;
+            right: clamp(28px, 5vw, 72px);
+            bottom: clamp(24px, 3.2vh, 42px);
+            z-index: 25;
+            width: min(300px, calc(100vw - 56px));
+            color: rgba(239, 250, 249, 0.72);
+            font-family: "nbarchitekt", "PingFang SC", "Microsoft YaHei", sans-serif;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(6px);
+            transition: opacity 220ms ease, transform 220ms ease;
+        }
+
+        .zwl-load-progress.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .zwl-load-progress.is-complete {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+
+        .zwl-load-progress__meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 8px;
+        }
+
+        .zwl-load-progress__label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .zwl-load-progress__value {
+            min-width: 36px;
+            color: #82f4ee;
+            text-align: right;
+        }
+
+        .zwl-load-progress__track {
+            position: relative;
+            height: 2px;
+            overflow: hidden;
+            background: rgba(130, 244, 238, 0.14);
+        }
+
+        .zwl-load-progress__bar {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(130, 244, 238, 0.45), #82f4ee);
+            box-shadow: 0 0 12px rgba(130, 244, 238, 0.42);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @media (max-width: 640px) {
+            .zwl-load-progress {
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+                width: auto;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .zwl-load-progress,
+            .zwl-load-progress__bar {
+                transition: none;
+            }
+        }
     </style>
     <script>
         (function(){
@@ -1105,13 +1185,12 @@
         window.__ZWL_SITE_READY__ = false;
         window._HYDRA_BEFORE_READY_OLD = window._HYDRA_BEFORE_READY;
         window._HYDRA_BEFORE_READY = new Promise(function(resolve) {
-            var started = Date.now();
             var previous = window._HYDRA_BEFORE_READY_OLD;
 
             function installNativeLoaderBypass() {
                 if (!window.Class || !window.Component || !window.XComponent || !window.LoaderView) {
-                    if (Date.now() - started > 10000) return resolve();
-                    return setTimeout(installNativeLoaderBypass, 16);
+                    if (window.__ZWL_APP_LOAD_FAILED__) return;
+                    return setTimeout(installNativeLoaderBypass, 50);
                 }
 
                 Class((function LoaderGLUI(_params) {
@@ -1138,10 +1217,15 @@
                     _this.contexts = "Component";
                     _this.params = _params || {};
                     _this.isFragment = true;
+                    var progressFrame = 0;
+                    var pendingProgress = 0;
 
                     function revealSite() {
                         if (finished) return;
                         finished = true;
+                        if (window.__ZWL_FINISH_LOAD_PROGRESS__) {
+                            window.__ZWL_FINISH_LOAD_PROGRESS__();
+                        }
                         window.__ZWL_SITE_READY__ = true;
                         document.documentElement.style.setProperty("--baropacity", "0.9");
                         _this.fire && _this.fire("Global/loadFinished");
@@ -1150,11 +1234,23 @@
                     }
 
                     if (_this.params.loader && _this.bind && window.Events) {
+                        if (window.__ZWL_SET_LOAD_PROGRESS__) {
+                            window.__ZWL_SET_LOAD_PROGRESS__(0.3, "LOADING SCENE / 场景加载中");
+                        }
+                        _this.bind(_this.params.loader, Events.PROGRESS, function(event) {
+                            var percent = event && Number(event.percent);
+                            if (!isFinite(percent) || !window.__ZWL_SET_LOAD_PROGRESS__) return;
+                            pendingProgress = Math.max(pendingProgress, Math.max(0, Math.min(1, percent)));
+                            if (progressFrame) return;
+                            progressFrame = requestAnimationFrame(function() {
+                                progressFrame = 0;
+                                window.__ZWL_SET_LOAD_PROGRESS__(0.3 + pendingProgress * 0.64);
+                            });
+                        });
                         _this.bind(_this.params.loader, Events.COMPLETE, revealSite);
                     } else {
                         setTimeout(revealSite, 0);
                     }
-                    setTimeout(revealSite, 1200);
 
                     _this.ready = function() { return Promise.resolve(); };
                     _this.flag && _this.flag("__ready", true);
@@ -1188,7 +1284,16 @@
                 var e=document.createElement("script");
                 e.src=s;
                 e.async=true;
-                e.fetchPriority="low";
+                e.fetchPriority="high";
+                e.onload=function(){
+                    if(window.__ZWL_SET_LOAD_PROGRESS__){
+                        window.__ZWL_SET_LOAD_PROGRESS__(0.28,"PREPARING SCENE / 正在准备场景");
+                    }
+                };
+                e.onerror=function(){
+                    window.__ZWL_APP_LOAD_FAILED__=true;
+                    if(window.__ZWL_FAIL_LOAD_PROGRESS__)window.__ZWL_FAIL_LOAD_PROGRESS__();
+                };
                 h.appendChild(e);
             }
             window.__ZWL_START_APP__=startApp;
@@ -1228,6 +1333,97 @@
     </section>
 
     <div class="zwl-scene-placeholder" id="zwlScenePlaceholder" aria-hidden="true"></div>
+
+    <div class="zwl-load-progress" id="zwlLoadProgress" role="progressbar" aria-label="网站首次加载进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="zwl-load-progress__meta">
+            <span class="zwl-load-progress__label" id="zwlLoadProgressLabel">INITIALIZING / 正在初始化</span>
+            <span class="zwl-load-progress__value" id="zwlLoadProgressValue">0%</span>
+        </div>
+        <div class="zwl-load-progress__track" aria-hidden="true">
+            <span class="zwl-load-progress__bar" id="zwlLoadProgressBar"></span>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            var progress = 0;
+            var complete = false;
+            var started = Date.now();
+            var timer = null;
+
+            function getElements() {
+                return {
+                    root: document.getElementById("zwlLoadProgress"),
+                    label: document.getElementById("zwlLoadProgressLabel"),
+                    value: document.getElementById("zwlLoadProgressValue"),
+                    bar: document.getElementById("zwlLoadProgressBar")
+                };
+            }
+
+            function setProgress(next, label) {
+                if (complete) return;
+                next = Number(next);
+                if (!isFinite(next)) return;
+                var previousProgress = progress;
+                progress = Math.max(progress, Math.min(0.98, Math.max(0, next)));
+                var elements = getElements();
+                if (!elements.root) return;
+                if (label && next >= previousProgress && elements.label) elements.label.textContent = label;
+                var percent = Math.round(progress * 100);
+                elements.root.classList.add("is-visible");
+                elements.root.setAttribute("aria-valuenow", String(percent));
+                if (elements.value) elements.value.textContent = percent + "%";
+                if (elements.bar) elements.bar.style.transform = "scaleX(" + progress.toFixed(4) + ")";
+            }
+
+            function finishProgress() {
+                if (complete) return;
+                complete = true;
+                if (timer) clearInterval(timer);
+                var elements = getElements();
+                if (!elements.root) return;
+                elements.root.setAttribute("aria-valuenow", "100");
+                if (elements.label) elements.label.textContent = "READY / 加载完成";
+                if (elements.value) elements.value.textContent = "100%";
+                if (elements.bar) elements.bar.style.transform = "scaleX(1)";
+                setTimeout(function(){
+                    elements.root.classList.add("is-complete");
+                    setTimeout(function(){ elements.root.setAttribute("hidden", ""); }, 260);
+                }, 320);
+            }
+
+            function failProgress() {
+                if (complete) return;
+                if (timer) clearInterval(timer);
+                var elements = getElements();
+                if (!elements.root) return;
+                elements.root.classList.add("is-visible");
+                if (elements.label) elements.label.textContent = "LOAD FAILED / 请刷新页面重试";
+            }
+
+            window.__ZWL_SET_LOAD_PROGRESS__ = setProgress;
+            window.__ZWL_FINISH_LOAD_PROGRESS__ = finishProgress;
+            window.__ZWL_FAIL_LOAD_PROGRESS__ = failProgress;
+
+            setProgress(0.03);
+            timer = setInterval(function(){
+                if (window.__ZWL_SITE_READY__) {
+                    finishProgress();
+                    return;
+                }
+                var elapsed = Date.now() - started;
+                var target;
+                if (elapsed < 4000) {
+                    target = 0.03 + elapsed / 4000 * 0.11;
+                } else if (elapsed < 10000) {
+                    target = 0.14 + (elapsed - 4000) / 6000 * 0.08;
+                } else {
+                    target = Math.min(0.28, 0.22 + (elapsed - 10000) / 30000 * 0.06);
+                }
+                setProgress(target, elapsed > 15000 ? "LOADING SCENE / 首次加载资源较多" : null);
+            }, 250);
+        }());
+    </script>
 
     <script>
         (function(){
@@ -1389,7 +1585,6 @@
                 playAttempt.then(startApp).catch(function(){});
             }
             scheduleFallback(10000);
-            setTimeout(function(){ startApp(); closeIntro(); }, 7000);
         }());
     </script>
 
