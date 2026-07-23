@@ -1089,6 +1089,11 @@
             transform: translateY(0);
         }
 
+        html.zwl-intro-waiting .zwl-load-progress {
+            z-index: 2147483001;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.92);
+        }
+
         .zwl-load-progress.is-complete {
             opacity: 0;
             transform: translateY(4px);
@@ -1223,17 +1228,50 @@
                     function revealSite() {
                         if (finished) return;
                         finished = true;
-                        if (window.__ZWL_FINISH_LOAD_PROGRESS__) {
-                            window.__ZWL_FINISH_LOAD_PROGRESS__();
-                        }
-                        window.__ZWL_SITE_READY__ = true;
-                        document.documentElement.style.setProperty("--baropacity", "0.9");
-                        _this.fire && _this.fire("Global/loadFinished");
-                        window.dispatchEvent(new CustomEvent("zwl:site-ready"));
-                        _this.destroy && _this.destroy();
+                        requestAnimationFrame(function() {
+                            requestAnimationFrame(function() {
+                                if (window.__ZWL_FINISH_LOAD_PROGRESS__) {
+                                    window.__ZWL_FINISH_LOAD_PROGRESS__();
+                                }
+                                window.__ZWL_SITE_READY__ = true;
+                                document.documentElement.style.setProperty("--baropacity", "0.9");
+                                _this.fire && _this.fire("Global/loadFinished");
+                                window.dispatchEvent(new CustomEvent("zwl:site-ready"));
+                                _this.destroy && _this.destroy();
+                            });
+                        });
                     }
 
                     if (_this.params.loader && _this.bind && window.Events) {
+                        var loader = _this.params.loader;
+
+                        function waitForSignal(eventName) {
+                            var signaled = false;
+                            loader.add(1);
+                            _this.bind(eventName, function() {
+                                if (signaled) return;
+                                signaled = true;
+                                loader.trigger(1);
+                            });
+                        }
+
+                        waitForSignal("FXScroll/firstScene");
+                        waitForSignal("ContactUI/ready");
+                        waitForSignal("NavUI/ready");
+                        loader.add(1);
+                        Promise.resolve().then(async function() {
+                            if (typeof GPU === "undefined" || !GPU.ready) throw new Error("GPU unavailable");
+                            if (typeof World === "undefined" || !World.instance) throw new Error("World unavailable");
+                            await GPU.ready();
+                            var world = World.instance();
+                            if (!world || !world.ready) throw new Error("World not ready");
+                            await world.ready();
+                            loader.trigger(1);
+                        }).catch(function() {
+                            window.__ZWL_SCENE_LOAD_FAILED__ = true;
+                            if (window.__ZWL_FAIL_LOAD_PROGRESS__) window.__ZWL_FAIL_LOAD_PROGRESS__();
+                        });
+
                         if (window.__ZWL_SET_LOAD_PROGRESS__) {
                             window.__ZWL_SET_LOAD_PROGRESS__(0.3, "LOADING SCENE / 场景加载中");
                         }
@@ -1442,6 +1480,11 @@
             var fallbackTimer = null;
             var transitionTimer = null;
             var audioUnlocked = false;
+            var appStartQueued = false;
+            var introCloseQueued = false;
+            var sceneReady = !!window.__ZWL_SITE_READY__;
+            var videoExitPointReached = false;
+            var videoEnded = false;
             var transitionLeadSeconds = 0.24;
 
             function resetSiteToStart() {
@@ -1456,13 +1499,25 @@
             }
 
             window.addEventListener("zwl:site-ready", function(){
+                sceneReady = true;
                 resetSiteToStart();
                 requestAnimationFrame(resetSiteToStart);
+                tryCloseIntro();
             }, { once: true });
 
             function startApp() {
                 resetSiteToStart();
                 if (window.__ZWL_START_APP__) window.__ZWL_START_APP__();
+            }
+
+            function startAppAfterFirstVideoFrame() {
+                if (appStartQueued) return;
+                appStartQueued = true;
+                if (video && video.requestVideoFrameCallback) {
+                    video.requestVideoFrameCallback(startApp);
+                } else {
+                    requestAnimationFrame(startApp);
+                }
             }
 
             function setSoundButtonVisible(visible) {
@@ -1483,6 +1538,7 @@
                 if (transitionTimer) clearTimeout(transitionTimer);
                 removeAudioUnlockListeners();
                 setSoundButtonVisible(false);
+                document.documentElement.classList.remove("zwl-intro-waiting");
                 resetSiteToStart();
                 intro.classList.add("is-hiding");
                 setTimeout(function(){
@@ -1494,9 +1550,40 @@
                 }, 280);
             }
 
+            function tryCloseIntro() {
+                if (closed || introCloseQueued || !sceneReady || !videoExitPointReached) return;
+                introCloseQueued = true;
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(closeIntro);
+                });
+            }
+
             function scheduleFallback(ms) {
                 if (fallbackTimer) clearTimeout(fallbackTimer);
-                fallbackTimer = setTimeout(closeIntro, ms);
+                fallbackTimer = setTimeout(finishVideoPlayback, ms);
+            }
+
+            function reachVideoExitPoint() {
+                if (closed) return;
+                videoExitPointReached = true;
+                tryCloseIntro();
+            }
+
+            function finishVideoPlayback() {
+                if (closed || videoEnded) return;
+                videoEnded = true;
+                videoExitPointReached = true;
+                if (video && !video.paused) video.pause();
+                removeAudioUnlockListeners();
+                setSoundButtonVisible(false);
+                if (sceneReady) {
+                    tryCloseIntro();
+                    return;
+                }
+                document.documentElement.classList.add("zwl-intro-waiting");
+                if (!window.__ZWL_APP_LOAD_FAILED__ && !window.__ZWL_SCENE_LOAD_FAILED__ && window.__ZWL_SET_LOAD_PROGRESS__) {
+                    window.__ZWL_SET_LOAD_PROGRESS__(0.28, "LOADING SCENE / 场景加载中");
+                }
             }
 
             function scheduleSeamlessTransition() {
@@ -1504,10 +1591,14 @@
                 var duration = Number(video.duration);
                 var currentTime = Number(video.currentTime) || 0;
                 if (!(duration > 0) || !isFinite(duration)) return;
+                if (currentTime >= duration - transitionLeadSeconds) {
+                    reachVideoExitPoint();
+                    return;
+                }
                 if (transitionTimer) clearTimeout(transitionTimer);
                 transitionTimer = setTimeout(
-                    closeIntro,
-                    Math.max(0, (duration - currentTime - transitionLeadSeconds) * 1000)
+                    scheduleSeamlessTransition,
+                    Math.max(50, (duration - currentTime - transitionLeadSeconds) * 1000)
                 );
             }
 
@@ -1542,7 +1633,7 @@
 
             if (!video) {
                 startApp();
-                closeIntro();
+                finishVideoPlayback();
                 return;
             }
 
@@ -1561,28 +1652,24 @@
             }
 
             video.addEventListener("playing", function(){
-                startApp();
+                startAppAfterFirstVideoFrame();
                 scheduleSeamlessTransition();
+                scheduleFallback(10000);
             }, { once: true });
-            video.addEventListener("ended", closeIntro, { once: true });
+            video.addEventListener("ended", finishVideoPlayback, { once: true });
             video.addEventListener("error", function(){
                 startApp();
-                closeIntro();
+                finishVideoPlayback();
             }, { once: true });
             video.addEventListener("timeupdate", function(){
-                if (video.duration && video.currentTime >= video.duration - transitionLeadSeconds) closeIntro();
+                if (video.duration && video.currentTime >= video.duration - transitionLeadSeconds) reachVideoExitPoint();
             });
-            video.addEventListener("loadedmetadata", function(){
-                var duration = Number(video.duration);
-                if (duration > 0 && isFinite(duration)) {
-                    scheduleSeamlessTransition();
-                    scheduleFallback(Math.ceil(duration * 1000) + 300);
-                }
-            }, { once: true });
 
             var playAttempt = video.play && video.play();
             if (playAttempt && playAttempt.then) {
-                playAttempt.then(startApp).catch(function(){});
+                playAttempt.then(startAppAfterFirstVideoFrame).catch(function(){
+                    startApp();
+                });
             }
             scheduleFallback(10000);
         }());
