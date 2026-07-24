@@ -1673,7 +1673,8 @@
                 #031011;
         }
 
-        html.zwl-app-fallback body {
+        html.zwl-app-fallback body,
+        html.zwl-soft-entry body {
             background:
                 linear-gradient(90deg, rgba(0, 0, 0, 0.42), transparent 62%),
                 url("assets/intro/jimeng-poster.webp?v=20260716-hd720") center / cover fixed no-repeat,
@@ -2029,6 +2030,7 @@
                                     window.__ZWL_FINISH_LOAD_PROGRESS__();
                                 }
                                 window.__ZWL_SITE_READY__ = true;
+                                document.documentElement.classList.remove("zwl-soft-entry");
                                 document.documentElement.style.setProperty("--baropacity", "0.9");
                                 _this.fire && _this.fire("Global/loadFinished");
                                 window.dispatchEvent(new CustomEvent("zwl:site-ready"));
@@ -2357,27 +2359,7 @@
                     return;
                 }
 
-                if (document.hidden) {
-                    document.addEventListener("visibilitychange", function resumeWhenVisible() {
-                        if (!document.hidden) scheduleNext();
-                    }, { once: true, passive: true });
-                    return;
-                }
-
-                var schedule = window.requestIdleCallback || function(callback) {
-                    return setTimeout(function(){ callback({ timeRemaining: function(){ return 10; } }); }, 250);
-                };
-
-                schedule(function(deadline) {
-                    if (document.hidden) {
-                        scheduleNext();
-                        return;
-                    }
-                    if (deadline.timeRemaining && deadline.timeRemaining() < 4) {
-                        scheduleNext();
-                        return;
-                    }
-
+                setTimeout(function() {
                     var item = queue.shift();
                     updateState("warming");
                     var task = item.type === "image" ? warmImage(item.url) : warmVideoMetadata(item.url);
@@ -2387,7 +2369,7 @@
                         updateState("warming");
                         scheduleNext();
                     });
-                }, { timeout: 1800 });
+                }, 360);
             }
 
             function startPrewarm() {
@@ -2424,7 +2406,7 @@
             }
 
             function startAfterExperience() {
-                setTimeout(startPrewarm, 800);
+                setTimeout(startPrewarm, 4000);
             }
 
             if (window.__ZWL_INTRO_CLOSED__) {
@@ -2463,6 +2445,13 @@
             var videoExitPointReached = false;
             var videoEnded = false;
             var transitionLeadSeconds = 0.24;
+            var absoluteEntryTimer = setTimeout(function(){
+                if (window.__ZWL_SITE_READY__) return;
+                window.__ZWL_SITE_READY__ = true;
+                document.documentElement.classList.add("zwl-soft-entry");
+                if (window.__ZWL_FINISH_LOAD_PROGRESS__) window.__ZWL_FINISH_LOAD_PROGRESS__();
+                window.dispatchEvent(new CustomEvent("zwl:site-ready"));
+            }, 8000);
 
             function resetSiteToStart() {
                 window.scrollTo(0, 0);
@@ -2479,7 +2468,11 @@
                 sceneReady = true;
                 resetSiteToStart();
                 requestAnimationFrame(resetSiteToStart);
-                scheduleSeamlessTransition();
+                if (!video || video.paused || video.error) {
+                    reachVideoExitPoint();
+                } else {
+                    scheduleSeamlessTransition();
+                }
                 tryCloseIntro();
             }, { once: true });
 
@@ -2512,6 +2505,7 @@
             function closeIntro() {
                 if (closed || !intro) return;
                 closed = true;
+                if (absoluteEntryTimer) clearTimeout(absoluteEntryTimer);
                 if (fallbackTimer) clearTimeout(fallbackTimer);
                 if (transitionTimer) clearTimeout(transitionTimer);
                 removeAudioUnlockListeners();
@@ -2653,7 +2647,7 @@
             video.addEventListener("playing", function(){
                 startAppAfterFirstVideoFrame();
                 scheduleSeamlessTransition();
-                scheduleFallback(12000);
+                scheduleFallback(9000);
             }, { once: true });
             video.addEventListener("ended", finishVideoPlayback);
             video.addEventListener("error", function(){
@@ -2672,7 +2666,7 @@
                     startApp();
                 });
             }
-            scheduleFallback(12000);
+            scheduleFallback(9000);
         }());
     </script>
 
