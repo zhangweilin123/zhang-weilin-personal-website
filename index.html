@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="zwl-lite-mode">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -24,7 +24,7 @@
     <script>
         (function(){
             var params = new URLSearchParams(window.location.search);
-            window.__ZWL_LITE_MODE__ = params.get("immersive") !== "1";
+            window.__ZWL_LITE_MODE__ = params.get("lite") === "1";
             document.documentElement.classList.toggle("zwl-lite-mode", window.__ZWL_LITE_MODE__);
             if (!window.__ZWL_LITE_MODE__) {
                 var styles = document.createElement("link");
@@ -38,7 +38,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/meta/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/meta/favicon-16x16.png">
     <link rel="manifest" href="assets/meta/manifest.json">
+    <link rel="preload" href="assets/intro/jimeng-opening.mp4?v=20260716-hd720" as="video" type="video/mp4" fetchpriority="high">
     <link rel="preload" href="assets/intro/jimeng-poster.webp?v=20260716-hd720" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="assets/js/app.1780406240914.js?v=20260716-instant" as="script" fetchpriority="high">
+    <link rel="preload" href="assets/data/uil.1780406240914.json?v=20260716-refined" as="fetch" crossorigin="anonymous" fetchpriority="high">
+    <link rel="preload" href="assets/shaders/compiled.vs" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="assets/js/lib/_draco/draco_decoder.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
+    <link rel="preload" href="assets/js/lib/basis_transcoder.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
     <link rel="preload" href="assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="mask-icon" href="assets/meta/safari-pinned-tab.svg" color="#333333">
@@ -1667,6 +1673,13 @@
                 #031011;
         }
 
+        html.zwl-app-fallback body {
+            background:
+                linear-gradient(90deg, rgba(0, 0, 0, 0.42), transparent 62%),
+                url("assets/intro/jimeng-poster.webp?v=20260716-hd720") center / cover fixed no-repeat,
+                #031011;
+        }
+
         html.zwl-lite-mode #Stage,
         html.zwl-lite-mode .jimeng-intro,
         html.zwl-lite-mode .zwl-scene-placeholder,
@@ -1714,7 +1727,17 @@
             }
         }
 
+        .zwl-media-library,
+        .zwl-lite-only {
+            display: none !important;
+        }
+
+        html.zwl-lite-mode .zwl-lite-only {
+            display: inline-flex !important;
+        }
+
         html.zwl-lite-mode .zwl-media-library {
+            display: block;
             position: relative;
             width: 100%;
             min-height: 100vh;
@@ -2017,20 +2040,29 @@
                     if (_this.params.loader && _this.bind && window.Events) {
                         var loader = _this.params.loader;
 
-                        function waitForSignal(eventName) {
+                        function waitForSignal(eventName, timeoutMs) {
                             var signaled = false;
                             loader.add(1);
-                            _this.bind(eventName, function() {
+                            function settleSignal() {
                                 if (signaled) return;
                                 signaled = true;
                                 loader.trigger(1);
-                            });
+                            }
+                            _this.bind(eventName, settleSignal);
+                            setTimeout(settleSignal, timeoutMs || 18000);
                         }
 
-                        waitForSignal("FXScroll/firstScene");
-                        waitForSignal("ContactUI/ready");
-                        waitForSignal("NavUI/ready");
+                        waitForSignal("FXScroll/firstScene", 22000);
+                        waitForSignal("ContactUI/ready", 12000);
+                        waitForSignal("NavUI/ready", 12000);
                         loader.add(1);
+                        var worldSettled = false;
+                        function settleWorld() {
+                            if (worldSettled) return;
+                            worldSettled = true;
+                            loader.trigger(1);
+                        }
+                        setTimeout(settleWorld, 26000);
                         Promise.resolve().then(async function() {
                             if (typeof GPU === "undefined" || !GPU.ready) throw new Error("GPU unavailable");
                             if (typeof World === "undefined" || !World.instance) throw new Error("World unavailable");
@@ -2038,10 +2070,10 @@
                             var world = World.instance();
                             if (!world || !world.ready) throw new Error("World not ready");
                             await world.ready();
-                            loader.trigger(1);
+                            settleWorld();
                         }).catch(function() {
                             window.__ZWL_SCENE_LOAD_FAILED__ = true;
-                            if (window.__ZWL_FAIL_LOAD_PROGRESS__) window.__ZWL_FAIL_LOAD_PROGRESS__();
+                            settleWorld();
                         });
 
                         if (window.__ZWL_SET_LOAD_PROGRESS__) {
@@ -2058,6 +2090,7 @@
                             });
                         });
                         _this.bind(_this.params.loader, Events.COMPLETE, revealSite);
+                        setTimeout(revealSite, 30000);
                     } else {
                         setTimeout(revealSite, 0);
                     }
@@ -2103,7 +2136,10 @@
                 };
                 e.onerror=function(){
                     window.__ZWL_APP_LOAD_FAILED__=true;
-                    if(window.__ZWL_FAIL_LOAD_PROGRESS__)window.__ZWL_FAIL_LOAD_PROGRESS__();
+                    if(window.__ZWL_FINISH_LOAD_PROGRESS__)window.__ZWL_FINISH_LOAD_PROGRESS__();
+                    document.documentElement.classList.add("zwl-app-fallback");
+                    window.__ZWL_SITE_READY__=true;
+                    window.dispatchEvent(new CustomEvent("zwl:site-ready"));
                 };
                 h.appendChild(e);
             }
@@ -2139,7 +2175,7 @@
     <noscript><p style="background: black; color: white; font-size: 20px; display: inline; font-family: Helvetica, Arial, sans-serif; padding: 10px;">Please enable javascript</p></noscript>
 
     <section class="jimeng-intro" id="jimengIntro" aria-hidden="true">
-        <video class="jimeng-intro__video" id="jimengIntroVideo" muted playsinline preload="none" poster="assets/intro/jimeng-poster.webp?v=20260716-hd720">
+        <video class="jimeng-intro__video" id="jimengIntroVideo" autoplay muted playsinline preload="auto" poster="assets/intro/jimeng-poster.webp?v=20260716-hd720">
             <source src="assets/intro/jimeng-opening.mp4?v=20260716-hd720" type="video/mp4">
         </video>
         <button class="jimeng-intro__sound" id="jimengIntroSound" type="button" aria-label="Turn sound on">SOUND ON</button>
@@ -2236,6 +2272,166 @@
                 }
                 setProgress(target, elapsed > 15000 ? "LOADING SCENE / 首次加载资源较多" : null);
             }, 250);
+        }());
+    </script>
+
+    <script>
+        (function(){
+            if (window.__ZWL_LITE_MODE__) return;
+
+            var started = false;
+            var queue = [];
+            var completed = 0;
+            var failed = 0;
+
+            window.__ZWL_MEDIA_PREWARM__ = {
+                state: "idle",
+                total: 0,
+                completed: 0,
+                failed: 0
+            };
+
+            function updateState(state) {
+                window.__ZWL_MEDIA_PREWARM__.state = state;
+                window.__ZWL_MEDIA_PREWARM__.total = queue.length + completed + failed;
+                window.__ZWL_MEDIA_PREWARM__.completed = completed;
+                window.__ZWL_MEDIA_PREWARM__.failed = failed;
+                document.documentElement.setAttribute("data-zwl-prewarm-state", state);
+                document.documentElement.setAttribute("data-zwl-prewarm-total", String(window.__ZWL_MEDIA_PREWARM__.total));
+                document.documentElement.setAttribute("data-zwl-prewarm-done", String(completed + failed));
+            }
+
+            function withTimeout(promise, timeoutMs, abortController) {
+                return new Promise(function(resolve) {
+                    var settled = false;
+                    var timer = setTimeout(function() {
+                        if (settled) return;
+                        settled = true;
+                        if (abortController) abortController.abort();
+                        resolve(false);
+                    }, timeoutMs);
+                    promise.then(function(value) {
+                        if (settled) return;
+                        settled = true;
+                        clearTimeout(timer);
+                        resolve(value !== false);
+                    }, function() {
+                        if (settled) return;
+                        settled = true;
+                        clearTimeout(timer);
+                        resolve(false);
+                    });
+                });
+            }
+
+            function warmImage(url) {
+                return withTimeout(new Promise(function(resolve) {
+                    var image = new Image();
+                    image.decoding = "async";
+                    image.onload = function(){ resolve(true); };
+                    image.onerror = function(){ resolve(false); };
+                    image.src = url;
+                }), 7000);
+            }
+
+            function warmVideoMetadata(url) {
+                var controller = typeof AbortController === "function" ? new AbortController() : null;
+                var request = fetch(url, {
+                    cache: "force-cache",
+                    headers: { "Range": "bytes=0-262143" },
+                    signal: controller ? controller.signal : undefined
+                }).then(function(response) {
+                    if (!response.ok) return false;
+                    if (response.status !== 206) {
+                        if (response.body && response.body.cancel) response.body.cancel();
+                        return true;
+                    }
+                    return response.arrayBuffer().then(function(){ return true; });
+                });
+                return withTimeout(request, 9000, controller);
+            }
+
+            function scheduleNext() {
+                if (!queue.length) {
+                    updateState("complete");
+                    return;
+                }
+
+                if (document.hidden) {
+                    document.addEventListener("visibilitychange", function resumeWhenVisible() {
+                        if (!document.hidden) scheduleNext();
+                    }, { once: true, passive: true });
+                    return;
+                }
+
+                var schedule = window.requestIdleCallback || function(callback) {
+                    return setTimeout(function(){ callback({ timeRemaining: function(){ return 10; } }); }, 250);
+                };
+
+                schedule(function(deadline) {
+                    if (document.hidden) {
+                        scheduleNext();
+                        return;
+                    }
+                    if (deadline.timeRemaining && deadline.timeRemaining() < 4) {
+                        scheduleNext();
+                        return;
+                    }
+
+                    var item = queue.shift();
+                    updateState("warming");
+                    var task = item.type === "image" ? warmImage(item.url) : warmVideoMetadata(item.url);
+                    task.then(function(ok) {
+                        if (ok) completed += 1;
+                        else failed += 1;
+                        updateState("warming");
+                        scheduleNext();
+                    });
+                }, { timeout: 1800 });
+            }
+
+            function startPrewarm() {
+                if (started) return;
+                started = true;
+                updateState("catalog");
+
+                fetch("assets/cms/projects-dev.json?v=20260724-prewarm", { cache: "force-cache" })
+                    .then(function(response) {
+                        if (!response.ok) throw new Error("HTTP " + response.status);
+                        return response.json();
+                    })
+                    .then(function(projects) {
+                        var seen = {};
+                        (Array.isArray(projects) ? projects : []).forEach(function(project) {
+                            if (!project.video) return;
+                            var thumbnail = project.video.thumbnail;
+                            var videoUrl = project.video.url;
+                            if (thumbnail && !seen[thumbnail]) {
+                                seen[thumbnail] = true;
+                                queue.push({ type: "image", url: thumbnail });
+                            }
+                            if (videoUrl && !seen[videoUrl]) {
+                                seen[videoUrl] = true;
+                                queue.push({ type: "video", url: videoUrl });
+                            }
+                        });
+                        updateState(queue.length ? "queued" : "complete");
+                        scheduleNext();
+                    })
+                    .catch(function() {
+                        updateState("catalog-failed");
+                    });
+            }
+
+            function startAfterExperience() {
+                setTimeout(startPrewarm, 800);
+            }
+
+            if (window.__ZWL_INTRO_CLOSED__) {
+                startAfterExperience();
+            } else {
+                window.addEventListener("zwl:intro-closed", startAfterExperience, { once: true });
+            }
         }());
     </script>
 
@@ -2354,17 +2550,28 @@
                 if (closed || videoEnded) return;
                 videoEnded = true;
                 videoExitPointReached = true;
-                if (video && !video.paused) video.pause();
-                removeAudioUnlockListeners();
-                setSoundButtonVisible(false);
                 if (sceneReady) {
+                    if (video && !video.paused) video.pause();
+                    removeAudioUnlockListeners();
+                    setSoundButtonVisible(false);
                     tryCloseIntro();
                     return;
                 }
-                document.documentElement.classList.add("zwl-intro-waiting");
-                if (!window.__ZWL_APP_LOAD_FAILED__ && !window.__ZWL_SCENE_LOAD_FAILED__ && window.__ZWL_SET_LOAD_PROGRESS__) {
-                    window.__ZWL_SET_LOAD_PROGRESS__(0.28, "LOADING SCENE / 场景加载中");
+
+                videoEnded = false;
+                videoExitPointReached = false;
+                if (video) {
+                    try {
+                        video.currentTime = 0;
+                    } catch (error) {}
+                    var replayAttempt = video.play && video.play();
+                    if (replayAttempt && replayAttempt.then) {
+                        replayAttempt.then(scheduleSeamlessTransition).catch(function(){
+                            document.documentElement.classList.add("zwl-intro-waiting");
+                        });
+                    }
                 }
+                scheduleFallback(12000);
             }
 
             function scheduleSeamlessTransition() {
@@ -2435,9 +2642,9 @@
             video.addEventListener("playing", function(){
                 startAppAfterFirstVideoFrame();
                 scheduleSeamlessTransition();
-                scheduleFallback(10000);
+                scheduleFallback(12000);
             }, { once: true });
-            video.addEventListener("ended", finishVideoPlayback, { once: true });
+            video.addEventListener("ended", finishVideoPlayback);
             video.addEventListener("error", function(){
                 startApp();
                 finishVideoPlayback();
@@ -2452,7 +2659,7 @@
                     startApp();
                 });
             }
-            scheduleFallback(10000);
+            scheduleFallback(12000);
         }());
     </script>
 
@@ -2471,7 +2678,7 @@
                         <span class="zwl-actions__copy"><strong>查看精选作品</strong><small>SELECTED FILMS · AIGC WORKS</small></span>
                         <span class="zwl-actions__arrow" aria-hidden="true">→</span>
                     </a>
-                    <a class="zwl-actions__quiet" href="#zwlMediaLibrary">影像风格库</a>
+                    <a class="zwl-actions__quiet zwl-lite-only" href="#zwlMediaLibrary">影像风格库</a>
                     <a class="zwl-actions__quiet" href="tel:15010222352">联系合作</a>
                 </nav>
             </div>
