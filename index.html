@@ -2452,6 +2452,12 @@
                 if (window.__ZWL_FINISH_LOAD_PROGRESS__) window.__ZWL_FINISH_LOAD_PROGRESS__();
                 window.dispatchEvent(new CustomEvent("zwl:site-ready"));
             }, 8000);
+            var absoluteCloseTimer = setTimeout(function(){
+                if (closed) return;
+                sceneReady = true;
+                videoExitPointReached = true;
+                closeIntro();
+            }, 10000);
 
             function resetSiteToStart() {
                 window.scrollTo(0, 0);
@@ -2506,6 +2512,7 @@
                 if (closed || !intro) return;
                 closed = true;
                 if (absoluteEntryTimer) clearTimeout(absoluteEntryTimer);
+                if (absoluteCloseTimer) clearTimeout(absoluteCloseTimer);
                 if (fallbackTimer) clearTimeout(fallbackTimer);
                 if (transitionTimer) clearTimeout(transitionTimer);
                 removeAudioUnlockListeners();
