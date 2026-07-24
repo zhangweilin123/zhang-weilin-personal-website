@@ -2175,7 +2175,7 @@
     <noscript><p style="background: black; color: white; font-size: 20px; display: inline; font-family: Helvetica, Arial, sans-serif; padding: 10px;">Please enable javascript</p></noscript>
 
     <section class="jimeng-intro" id="jimengIntro" aria-hidden="true">
-        <video class="jimeng-intro__video" id="jimengIntroVideo" autoplay muted playsinline preload="auto" poster="assets/intro/jimeng-poster.webp?v=20260716-hd720">
+        <video class="jimeng-intro__video" id="jimengIntroVideo" autoplay muted loop playsinline preload="auto" poster="assets/intro/jimeng-poster.webp?v=20260716-hd720">
             <source src="assets/intro/jimeng-opening.mp4?v=20260716-hd720" type="video/mp4">
         </video>
         <button class="jimeng-intro__sound" id="jimengIntroSound" type="button" aria-label="Turn sound on">SOUND ON</button>
@@ -2479,6 +2479,7 @@
                 sceneReady = true;
                 resetSiteToStart();
                 requestAnimationFrame(resetSiteToStart);
+                scheduleSeamlessTransition();
                 tryCloseIntro();
             }, { once: true });
 
@@ -2549,21 +2550,26 @@
             function finishVideoPlayback() {
                 if (closed || videoEnded) return;
                 videoEnded = true;
-                videoExitPointReached = true;
                 if (sceneReady) {
-                    if (video && !video.paused) video.pause();
-                    removeAudioUnlockListeners();
-                    setSoundButtonVisible(false);
-                    tryCloseIntro();
+                    if (!video || video.paused || video.error) {
+                        reachVideoExitPoint();
+                    } else {
+                        videoEnded = false;
+                        scheduleSeamlessTransition();
+                    }
                     return;
                 }
 
                 videoEnded = false;
                 videoExitPointReached = false;
-                if (video) {
-                    try {
-                        video.currentTime = 0;
-                    } catch (error) {}
+                if (video && video.paused) {
+                    if (video.ended) {
+                        try {
+                            video.currentTime = 0;
+                        } catch (error) {}
+                    }
+                    video.muted = true;
+                    video.defaultMuted = true;
                     var replayAttempt = video.play && video.play();
                     if (replayAttempt && replayAttempt.then) {
                         replayAttempt.then(scheduleSeamlessTransition).catch(function(){
@@ -2571,7 +2577,7 @@
                         });
                     }
                 }
-                scheduleFallback(12000);
+                scheduleFallback(4000);
             }
 
             function scheduleSeamlessTransition() {
@@ -2580,7 +2586,12 @@
                 var currentTime = Number(video.currentTime) || 0;
                 if (!(duration > 0) || !isFinite(duration)) return;
                 if (currentTime >= duration - transitionLeadSeconds) {
-                    reachVideoExitPoint();
+                    if (sceneReady) {
+                        reachVideoExitPoint();
+                    } else {
+                        if (transitionTimer) clearTimeout(transitionTimer);
+                        transitionTimer = setTimeout(scheduleSeamlessTransition, 360);
+                    }
                     return;
                 }
                 if (transitionTimer) clearTimeout(transitionTimer);
@@ -2650,7 +2661,9 @@
                 finishVideoPlayback();
             }, { once: true });
             video.addEventListener("timeupdate", function(){
-                if (video.duration && video.currentTime >= video.duration - transitionLeadSeconds) reachVideoExitPoint();
+                if (sceneReady && video.duration && video.currentTime >= video.duration - transitionLeadSeconds) {
+                    reachVideoExitPoint();
+                }
             });
 
             var playAttempt = video.play && video.play();
