@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="zwl-lite-mode">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -21,18 +21,24 @@
     <meta name="apple-mobile-web-app-title" content="张炜林">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script>
+        (function(){
+            var params = new URLSearchParams(window.location.search);
+            window.__ZWL_LITE_MODE__ = params.get("immersive") !== "1";
+            document.documentElement.classList.toggle("zwl-lite-mode", window.__ZWL_LITE_MODE__);
+            if (!window.__ZWL_LITE_MODE__) {
+                var styles = document.createElement("link");
+                styles.rel = "stylesheet";
+                styles.href = "assets/film-styles.css?v=20260716-index-layout-6";
+                document.head.appendChild(styles);
+            }
+        }());
+    </script>
     <link rel="apple-touch-icon" sizes="180x180" href="assets/meta/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/meta/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/meta/favicon-16x16.png">
     <link rel="manifest" href="assets/meta/manifest.json">
-    <link rel="preload" href="assets/intro/jimeng-opening.mp4?v=20260716-hd720" as="video" type="video/mp4" fetchpriority="high">
     <link rel="preload" href="assets/intro/jimeng-poster.webp?v=20260716-hd720" as="image" type="image/webp" fetchpriority="high">
-    <link rel="stylesheet" href="assets/film-styles.css?v=20260716-index-layout-6">
-    <link rel="preload" href="assets/js/app.1780406240914.js?v=20260716-instant" as="script" fetchpriority="high">
-    <link rel="preload" href="assets/data/uil.1780406240914.json?v=20260716-refined" as="fetch" crossorigin="anonymous" fetchpriority="high">
-    <link rel="preload" href="assets/shaders/compiled.vs" as="fetch" crossorigin="anonymous">
-    <link rel="preload" href="assets/js/lib/_draco/draco_decoder.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
-    <link rel="preload" href="assets/js/lib/basis_transcoder.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
     <link rel="preload" href="assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="mask-icon" href="assets/meta/safari-pinned-tab.svg" color="#333333">
@@ -1635,6 +1641,283 @@
                 transition: none;
             }
         }
+
+        /*
+         * Lightweight first paint.
+         * The former WebGL scene, intro video and blocking loader pulled several
+         * megabytes before the page became usable. The personal content now
+         * renders as a native scrolling page over the 11 KB poster immediately.
+         */
+        html.zwl-lite-mode,
+        html.zwl-lite-mode body {
+            width: 100%;
+            min-height: 100%;
+            height: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -ms-touch-action: pan-y;
+            touch-action: pan-y;
+            background: #031011;
+        }
+
+        html.zwl-lite-mode body {
+            background:
+                linear-gradient(180deg, rgba(2, 12, 14, 0.32), rgba(2, 11, 13, 0.92)),
+                url("assets/intro/jimeng-poster.webp?v=20260716-hd720") center / cover fixed no-repeat,
+                #031011;
+        }
+
+        html.zwl-lite-mode #Stage,
+        html.zwl-lite-mode .jimeng-intro,
+        html.zwl-lite-mode .zwl-scene-placeholder,
+        html.zwl-lite-mode .zwl-load-progress,
+        html.zwl-lite-mode .ChatDOM {
+            display: none !important;
+        }
+
+        html.zwl-lite-mode .zwl-personal-layer {
+            position: relative;
+            inset: auto;
+            z-index: 1;
+            width: 100%;
+            min-height: 100vh;
+            height: auto;
+            overflow: visible;
+            pointer-events: auto;
+        }
+
+        html.zwl-lite-mode .zwl-screen {
+            position: relative;
+            inset: auto;
+            width: 100%;
+            min-height: 100vh;
+            height: auto;
+            overflow: visible;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transition: none !important;
+        }
+
+        html.zwl-lite-mode .zwl-screen .zwl-actions a {
+            pointer-events: auto;
+        }
+
+        html.zwl-lite-mode .zwl-about,
+        html.zwl-lite-mode .zwl-practice {
+            background: linear-gradient(180deg, rgba(2, 14, 16, 0.72), rgba(2, 11, 13, 0.94));
+        }
+
+        @supports (height: 100svh) {
+            html.zwl-lite-mode .zwl-personal-layer,
+            html.zwl-lite-mode .zwl-screen {
+                min-height: 100svh;
+            }
+        }
+
+        html.zwl-lite-mode .zwl-media-library {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            padding: clamp(64px, 7vw, 112px) clamp(20px, 5vw, 80px);
+            background: #030d0f;
+            color: #f4f8f7;
+        }
+
+        .zwl-media-library__header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 32px;
+            max-width: 1380px;
+            margin: 0 auto 34px;
+        }
+
+        .zwl-media-library__eyebrow {
+            margin: 0 0 12px;
+            color: #82f4ee;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+        }
+
+        .zwl-media-library__title {
+            margin: 0;
+            font-size: clamp(30px, 4.4vw, 64px);
+            line-height: 1;
+        }
+
+        .zwl-media-library__intro {
+            width: min(100%, 470px);
+            margin: 0;
+            color: rgba(234, 245, 244, 0.68);
+            font-size: 13px;
+            line-height: 1.75;
+        }
+
+        .zwl-media-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-width: 1380px;
+            margin: 0 auto 24px;
+        }
+
+        .zwl-media-filter {
+            min-height: 40px;
+            padding: 0 14px;
+            border: 1px solid rgba(130, 244, 238, 0.18);
+            border-radius: 999px;
+            background: rgba(8, 28, 30, 0.72);
+            color: rgba(239, 249, 248, 0.72);
+            font: 700 10px/1 "nbarchitekt", "PingFang SC", sans-serif;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+        }
+
+        .zwl-media-filter:hover,
+        .zwl-media-filter:focus-visible,
+        .zwl-media-filter.is-active {
+            border-color: #82f4ee;
+            background: #82f4ee;
+            color: #041617;
+            outline: none;
+        }
+
+        .zwl-media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+            gap: clamp(12px, 1.8vw, 24px);
+            max-width: 1380px;
+            margin: 0 auto;
+        }
+
+        .zwl-media-card {
+            min-width: 0;
+        }
+
+        .zwl-media-card[hidden] {
+            display: none;
+        }
+
+        .zwl-media-card__button {
+            display: block;
+            width: 100%;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid rgba(130, 244, 238, 0.12);
+            border-radius: 14px;
+            background: rgba(7, 24, 26, 0.78);
+            color: #fff;
+            text-align: left;
+            cursor: pointer;
+            contain: content;
+        }
+
+        .zwl-media-card__button:hover,
+        .zwl-media-card__button:focus-visible {
+            border-color: rgba(130, 244, 238, 0.68);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+        .zwl-media-card__image {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #071719;
+        }
+
+        .zwl-media-card__meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 13px 14px 14px;
+        }
+
+        .zwl-media-card__name {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+
+        .zwl-media-card__category {
+            color: rgba(130, 244, 238, 0.72);
+            font-size: 9px;
+            letter-spacing: 0.09em;
+        }
+
+        .zwl-media-status {
+            max-width: 1380px;
+            margin: 24px auto 0;
+            color: rgba(234, 245, 244, 0.62);
+            font-size: 11px;
+            letter-spacing: 0.06em;
+        }
+
+        .zwl-media-modal[hidden] {
+            display: none;
+        }
+
+        .zwl-media-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2147482000;
+            display: grid;
+            place-items: center;
+            padding: clamp(16px, 4vw, 56px);
+            background: rgba(0, 7, 8, 0.92);
+            backdrop-filter: blur(16px);
+        }
+
+        .zwl-media-modal__panel {
+            position: relative;
+            width: min(1120px, 100%);
+        }
+
+        .zwl-media-modal__video {
+            display: block;
+            width: 100%;
+            max-height: calc(100vh - 110px);
+            border-radius: 14px;
+            background: #000;
+        }
+
+        .zwl-media-modal__close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 1;
+            min-width: 44px;
+            min-height: 44px;
+            border: 1px solid rgba(255, 255, 255, 0.34);
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.62);
+            color: #fff;
+            font: 700 18px/1 sans-serif;
+            cursor: pointer;
+        }
+
+        @media (max-width: 760px) {
+            .zwl-media-library__header {
+                display: block;
+            }
+
+            .zwl-media-library__intro {
+                margin-top: 16px;
+            }
+
+            .zwl-media-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .zwl-media-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
     </style>
     <script>
         (function(){
@@ -1670,9 +1953,14 @@
         }());
     </script>
     <script>
+        (function(){
         window.__ZWL_DISABLE_NATIVE_LOADER__ = true;
-        window.__ZWL_SITE_READY__ = false;
+        window.__ZWL_SITE_READY__ = !!window.__ZWL_LITE_MODE__;
         window._HYDRA_BEFORE_READY_OLD = window._HYDRA_BEFORE_READY;
+        if (window.__ZWL_LITE_MODE__) {
+            window._HYDRA_BEFORE_READY = Promise.resolve(window._HYDRA_BEFORE_READY_OLD);
+            return;
+        }
         window._HYDRA_BEFORE_READY = new Promise(function(resolve) {
             var previous = window._HYDRA_BEFORE_READY_OLD;
 
@@ -1786,6 +2074,7 @@
         });
 
         !function(){
+            if(window.__ZWL_LITE_MODE__)return;
             window._ENV_='production';
             window._CMS_="%CMS%";
             window._UNSUPPORTED_PAGE_="unsupported.html";
@@ -1822,6 +2111,7 @@
             var fallbackStartDelay=window.matchMedia&&window.matchMedia("(max-width: 900px), (orientation: landscape) and (max-height: 500px) and (hover: none) and (pointer: coarse)").matches?4500:1600;
             setTimeout(startApp,fallbackStartDelay);
         }();
+        }());
     </script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -1849,7 +2139,7 @@
     <noscript><p style="background: black; color: white; font-size: 20px; display: inline; font-family: Helvetica, Arial, sans-serif; padding: 10px;">Please enable javascript</p></noscript>
 
     <section class="jimeng-intro" id="jimengIntro" aria-hidden="true">
-        <video class="jimeng-intro__video" id="jimengIntroVideo" autoplay muted playsinline preload="auto" poster="assets/intro/jimeng-poster.webp?v=20260716-hd720">
+        <video class="jimeng-intro__video" id="jimengIntroVideo" muted playsinline preload="none" poster="assets/intro/jimeng-poster.webp?v=20260716-hd720">
             <source src="assets/intro/jimeng-opening.mp4?v=20260716-hd720" type="video/mp4">
         </video>
         <button class="jimeng-intro__sound" id="jimengIntroSound" type="button" aria-label="Turn sound on">SOUND ON</button>
@@ -1869,6 +2159,7 @@
 
     <script>
         (function(){
+            if (window.__ZWL_LITE_MODE__) return;
             var progress = 0;
             var complete = false;
             var started = Date.now();
@@ -1959,6 +2250,11 @@
     <script>
         (function(){
             var intro = document.getElementById("jimengIntro");
+            if (window.__ZWL_LITE_MODE__) {
+                if (intro && intro.parentNode) intro.parentNode.removeChild(intro);
+                window.__ZWL_INTRO_CLOSED__ = true;
+                return;
+            }
             var video = document.getElementById("jimengIntroVideo");
             var soundButton = document.getElementById("jimengIntroSound");
             var closed = false;
@@ -2175,6 +2471,7 @@
                         <span class="zwl-actions__copy"><strong>查看精选作品</strong><small>SELECTED FILMS · AIGC WORKS</small></span>
                         <span class="zwl-actions__arrow" aria-hidden="true">→</span>
                     </a>
+                    <a class="zwl-actions__quiet" href="#zwlMediaLibrary">影像风格库</a>
                     <a class="zwl-actions__quiet" href="tel:15010222352">联系合作</a>
                 </nav>
             </div>
@@ -2261,8 +2558,189 @@
                 <p class="zwl-practice__status">OPEN FOR COLLABORATION · 2026</p>
             </aside>
         </section>
+
+        <section class="zwl-media-library" id="zwlMediaLibrary" aria-labelledby="zwlMediaLibraryTitle">
+            <header class="zwl-media-library__header">
+                <div>
+                    <p class="zwl-media-library__eyebrow">04 / VISUAL STYLE LIBRARY</p>
+                    <h2 class="zwl-media-library__title" id="zwlMediaLibraryTitle">影像风格库</h2>
+                </div>
+                <p class="zwl-media-library__intro">64 组视频与封面按分类呈现。封面接近视口时加载，视频仅在点开时请求，保证首次进入流畅，同时保留完整内容。</p>
+            </header>
+            <nav class="zwl-media-filters" id="zwlMediaFilters" aria-label="影像风格分类"></nav>
+            <div class="zwl-media-grid" id="zwlMediaGrid" aria-live="polite"></div>
+            <p class="zwl-media-status" id="zwlMediaStatus">继续向下滚动即可加载影像风格库。</p>
+        </section>
     </main>
 
+    <div class="zwl-media-modal" id="zwlMediaModal" hidden role="dialog" aria-modal="true" aria-label="视频播放器">
+        <div class="zwl-media-modal__panel">
+            <button class="zwl-media-modal__close" id="zwlMediaModalClose" type="button" aria-label="关闭视频">×</button>
+            <video class="zwl-media-modal__video" id="zwlMediaVideo" controls playsinline preload="metadata"></video>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            if (!window.__ZWL_LITE_MODE__) return;
+
+            var library = document.getElementById("zwlMediaLibrary");
+            var filters = document.getElementById("zwlMediaFilters");
+            var grid = document.getElementById("zwlMediaGrid");
+            var status = document.getElementById("zwlMediaStatus");
+            var modal = document.getElementById("zwlMediaModal");
+            var modalClose = document.getElementById("zwlMediaModalClose");
+            var player = document.getElementById("zwlMediaVideo");
+            var loaded = false;
+            var cards = [];
+            var categoryLabels = {
+                narrative: "叙事风格",
+                visual: "视觉风格",
+                shooting: "拍摄风格",
+                "era-region": "时代地域",
+                commercial: "商业媒介",
+                extended: "扩展风格"
+            };
+
+            function setStatus(message) {
+                if (status) status.textContent = message;
+            }
+
+            function closeVideo() {
+                if (!modal || !player) return;
+                player.pause();
+                player.removeAttribute("src");
+                player.removeAttribute("poster");
+                player.load();
+                modal.setAttribute("hidden", "");
+                document.body.style.removeProperty("overflow");
+            }
+
+            function openVideo(project) {
+                if (!modal || !player || !project.video) return;
+                player.poster = project.video.thumbnail || "";
+                player.src = project.video.url || "";
+                modal.removeAttribute("hidden");
+                document.body.style.overflow = "hidden";
+                var playAttempt = player.play();
+                if (playAttempt && playAttempt.catch) playAttempt.catch(function(){});
+                if (modalClose) modalClose.focus();
+            }
+
+            function applyFilter(tag, button) {
+                cards.forEach(function(card) {
+                    card.element.toggleAttribute("hidden", tag !== "all" && card.tag !== tag);
+                });
+                if (filters) {
+                    filters.querySelectorAll(".zwl-media-filter").forEach(function(item) {
+                        item.classList.toggle("is-active", item === button);
+                        item.setAttribute("aria-pressed", item === button ? "true" : "false");
+                    });
+                }
+            }
+
+            function addFilter(tag, label, active) {
+                if (!filters) return;
+                var button = document.createElement("button");
+                button.type = "button";
+                button.className = "zwl-media-filter" + (active ? " is-active" : "");
+                button.textContent = label;
+                button.setAttribute("aria-pressed", active ? "true" : "false");
+                button.addEventListener("click", function(){ applyFilter(tag, button); });
+                filters.appendChild(button);
+            }
+
+            function render(projects) {
+                var fragment = document.createDocumentFragment();
+                var tags = [];
+
+                projects.forEach(function(project) {
+                    if (!project.video || !project.video.url || !project.video.thumbnail) return;
+                    var tag = String(project.tags || "extended");
+                    if (tags.indexOf(tag) === -1) tags.push(tag);
+
+                    var article = document.createElement("article");
+                    article.className = "zwl-media-card";
+
+                    var button = document.createElement("button");
+                    button.type = "button";
+                    button.className = "zwl-media-card__button";
+                    button.setAttribute("aria-label", "播放 " + project.name);
+
+                    var image = document.createElement("img");
+                    image.className = "zwl-media-card__image";
+                    image.src = project.video.thumbnail;
+                    image.alt = project.name + " 视频封面";
+                    image.loading = "lazy";
+                    image.decoding = "async";
+                    image.width = 800;
+                    image.height = 450;
+
+                    var meta = document.createElement("span");
+                    meta.className = "zwl-media-card__meta";
+                    var name = document.createElement("span");
+                    name.className = "zwl-media-card__name";
+                    name.textContent = project.name;
+                    var category = document.createElement("span");
+                    category.className = "zwl-media-card__category";
+                    category.textContent = categoryLabels[tag] || tag;
+                    meta.appendChild(name);
+                    meta.appendChild(category);
+
+                    button.appendChild(image);
+                    button.appendChild(meta);
+                    button.addEventListener("click", function(){ openVideo(project); });
+                    article.appendChild(button);
+                    fragment.appendChild(article);
+                    cards.push({ element: article, tag: tag });
+                });
+
+                addFilter("all", "全部", true);
+                tags.forEach(function(tag){ addFilter(tag, categoryLabels[tag] || tag, false); });
+                if (grid) grid.appendChild(fragment);
+                setStatus("共 " + cards.length + " 组影像；视频在点开时加载。");
+            }
+
+            function loadLibrary() {
+                if (loaded) return;
+                loaded = true;
+                setStatus("正在读取影像目录…");
+                fetch("assets/cms/projects-dev.json?v=20260724-lite")
+                    .then(function(response) {
+                        if (!response.ok) throw new Error("HTTP " + response.status);
+                        return response.json();
+                    })
+                    .then(function(projects) {
+                        render(Array.isArray(projects) ? projects : []);
+                    })
+                    .catch(function() {
+                        loaded = false;
+                        setStatus("影像目录暂时无法加载，请刷新页面重试。");
+                    });
+            }
+
+            if (modalClose) modalClose.addEventListener("click", closeVideo);
+            if (modal) {
+                modal.addEventListener("click", function(event) {
+                    if (event.target === modal) closeVideo();
+                });
+            }
+            document.addEventListener("keydown", function(event) {
+                if (event.key === "Escape" && modal && !modal.hasAttribute("hidden")) closeVideo();
+            });
+
+            if ("IntersectionObserver" in window && library) {
+                var observer = new IntersectionObserver(function(entries) {
+                    if (!entries.some(function(entry){ return entry.isIntersecting; })) return;
+                    observer.disconnect();
+                    loadLibrary();
+                }, { rootMargin: "800px 0px" });
+                observer.observe(library);
+            } else {
+                window.addEventListener("load", loadLibrary, { once: true });
+            }
+        }());
+    </script>
 
     <script>
         (function(){
@@ -2281,6 +2759,16 @@
             var mobileLayer = document.querySelector(".zwl-personal-layer");
             var mobileRailQuery = window.matchMedia("(max-width: 640px), (orientation: landscape) and (max-height: 500px) and (hover: none) and (pointer: coarse)");
             var mobileScrollFramePending = false;
+
+            if (window.__ZWL_LITE_MODE__) {
+                [hero, about, practice].forEach(function(section) {
+                    if (!section) return;
+                    section.classList.add("is-active");
+                    section.setAttribute("aria-hidden", "false");
+                });
+                document.title = title;
+                return;
+            }
 
             function keepTitle() {
                 if (document.title !== title) document.title = title;
@@ -2437,6 +2925,12 @@
             tuneRenderer();
         }());
     </script>
-    <script src="assets/film-styles.js?v=20260716-index-layout-6"></script>
+    <script>
+        if (!window.__ZWL_LITE_MODE__) {
+            var filmStylesScript = document.createElement("script");
+            filmStylesScript.src = "assets/film-styles.js?v=20260716-index-layout-6";
+            document.body.appendChild(filmStylesScript);
+        }
+    </script>
 </body>
 </html>
